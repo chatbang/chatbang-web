@@ -85,7 +85,6 @@ const tw: LocaleType = {
     },
     SendKey: "發送鍵",
     Theme: "主題",
-    TightBorder: "緊湊邊框",
     SendPreviewBubble: {
       Title: "預覽氣泡",
       SubTitle: "在预览气泡中预览 Markdown 内容",

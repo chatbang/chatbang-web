@@ -87,7 +87,6 @@ const it: LocaleType = {
     },
     SendKey: "Tasto invia",
     Theme: "Tema",
-    TightBorder: "Schermo intero",
     SendPreviewBubble: {
       Title: "Anteprima di digitazione",
       SubTitle: "Preview markdown in bubble",

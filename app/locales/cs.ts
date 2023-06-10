@@ -87,7 +87,6 @@ const cs: LocaleType = {
     },
     SendKey: "Odeslat klíč",
     Theme: "Téma",
-    TightBorder: "Těsné ohraničení",
     SendPreviewBubble: {
       Title: "Odesílat chatovací bublinu s náhledem",
       SubTitle: "Zobrazit v náhledu bubliny",

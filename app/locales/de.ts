@@ -88,7 +88,6 @@ const de: LocaleType = {
     },
     SendKey: "Senden-Taste",
     Theme: "Erscheinungsbild",
-    TightBorder: "Enger Rahmen",
     SendPreviewBubble: {
       Title: "Vorschau-Bubble senden",
       SubTitle: "Preview markdown in bubble",

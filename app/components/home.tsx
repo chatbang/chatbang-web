@@ -100,7 +100,6 @@ const loadAsyncGoogleFont = () => {
 };
 
 function Screen() {
-  const config = useAppConfig();
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
@@ -114,11 +113,7 @@ function Screen() {
     <div
       className={
         styles.container +
-        ` ${
-          config.tightBorder && !isMobileScreen
-            ? styles["tight-container"]
-            : styles.container
-        }`
+        ` ${!isMobileScreen ? styles["tight-container"] : styles.container}`
       }
     >
       {isAuth ? (

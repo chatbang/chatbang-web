@@ -87,7 +87,6 @@ const es: LocaleType = {
     },
     SendKey: "Tecla de envío",
     Theme: "Tema",
-    TightBorder: "Borde ajustado",
     SendPreviewBubble: {
       Title: "Enviar burbuja de vista previa",
       SubTitle: "Preview markdown in bubble",

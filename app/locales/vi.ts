@@ -87,7 +87,6 @@ const vi: LocaleType = {
     },
     SendKey: "Phím gửi",
     Theme: "Theme",
-    TightBorder: "Chế độ không viền",
     SendPreviewBubble: {
       Title: "Gửi bong bóng xem trước",
       SubTitle: "Xem trước nội dung markdown bằng bong bóng",

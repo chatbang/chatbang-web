@@ -87,7 +87,6 @@ const tr: LocaleType = {
     },
     SendKey: "Gönder Tuşu",
     Theme: "Tema",
-    TightBorder: "Tam Ekran",
     SendPreviewBubble: {
       Title: "Mesaj Önizleme Balonu",
       SubTitle: "Preview markdown in bubble",

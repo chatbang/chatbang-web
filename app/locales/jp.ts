@@ -88,7 +88,6 @@ const jp: LocaleType = {
     },
     SendKey: "送信キー",
     Theme: "テーマ",
-    TightBorder: "ボーダーレスモード",
     SendPreviewBubble: {
       Title: "プレビューバブルの送信",
       SubTitle: "在预览气泡中预览 Markdown 内容",

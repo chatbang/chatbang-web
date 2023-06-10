@@ -112,7 +112,6 @@ const cn = {
     },
     SendKey: "发送键",
     Theme: "主题",
-    TightBorder: "无边框模式",
     SendPreviewBubble: {
       Title: "预览气泡",
       SubTitle: "在预览气泡中预览 Markdown 内容",

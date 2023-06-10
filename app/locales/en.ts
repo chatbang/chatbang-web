@@ -113,7 +113,6 @@ const en: RequiredLocaleType = {
     },
     SendKey: "Send Key",
     Theme: "Theme",
-    TightBorder: "Tight Border",
     SendPreviewBubble: {
       Title: "Send Preview Bubble",
       SubTitle: "Preview markdown in bubble",

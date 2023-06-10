@@ -87,7 +87,6 @@ const ko: LocaleType = {
     },
     SendKey: "전송 키",
     Theme: "테마",
-    TightBorder: "조밀한 테두리",
     SendPreviewBubble: {
       Title: "미리 보기 버블 전송",
       SubTitle: "버블에서 마크다운 미리 보기",

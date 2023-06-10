@@ -87,7 +87,6 @@ const ru: LocaleType = {
     },
     SendKey: "Клавиша отправки",
     Theme: "Тема",
-    TightBorder: "Узкая граница",
     SendPreviewBubble: {
       Title: "Отправить предпросмотр",
       SubTitle: "Предварительный просмотр markdown в пузыре",

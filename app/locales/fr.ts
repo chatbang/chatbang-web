@@ -89,7 +89,6 @@ const fr: LocaleType = {
     },
     SendKey: "Clé d'envoi",
     Theme: "Thème",
-    TightBorder: "Bordure serrée",
     SendPreviewBubble: {
       Title: "Aperçu de l'envoi dans une bulle",
       SubTitle: "Aperçu du Markdown dans une bulle",
