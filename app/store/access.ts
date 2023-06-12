@@ -8,6 +8,7 @@ import { ALL_MODELS } from "./config";
 export interface AccessControlStore {
   accessCode: string;
   token: string;
+  hasAuthorized: boolean;
 
   needCode: boolean;
   hideUserApiKey: boolean;
@@ -16,8 +17,9 @@ export interface AccessControlStore {
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   enabledAccessControl: () => boolean;
-  isAuthorized: () => boolean;
+  isAuthorized: () => void;
   fetch: () => void;
+  refresh: () => void;
 }
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
@@ -25,57 +27,79 @@ let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 export const useAccessStore = create<AccessControlStore>()(
   persist(
     (set, get) => ({
-      token: "",
+      // 原设置中预设的密码
+      // chatbang 中从api获取
+      token: "123456",
       accessCode: "",
       needCode: true,
       hideUserApiKey: false,
+      hasAuthorized: false,
       openaiUrl: "/api/openai/",
+
+      // 更新验证状态
+      refresh() {
+        if (get().hasAuthorized) {
+          get().isAuthorized();
+        }
+      },
 
       enabledAccessControl() {
         get().fetch();
-
         return get().needCode;
       },
+      // 用户输入密码
       updateCode(code: string) {
         set(() => ({ accessCode: code }));
       },
+      // 原设置中预设密码
       updateToken(token: string) {
         set(() => ({ token }));
       },
+      // 获取授权信息
+      getAuthInfo() {
+        return get().hasAuthorized;
+      },
+      // 进行验证
       isAuthorized() {
         get().fetch();
-
         // has token or has code or disabled access control
-        return (
-          !!get().token || !!get().accessCode || !get().enabledAccessControl()
-        );
+        // return (
+        //   !!get().token || !!get().accessCode || !get().enabledAccessControl()
+        // );
       },
+      // 获取授权信息
       fetch() {
         if (fetchState > 0) return;
         fetchState = 1;
-        fetch("/api/config", {
+        fetch("/api/auth", {
           method: "post",
-          body: null,
+          body: JSON.stringify({ code: get().accessCode }),
           headers: {
-            ...getHeaders(),
+            "Content-Type": "application/json",
+            "x-requested-with": "XMLHttpRequest",
+            "Authorization-token": get().token,
           },
         })
           .then((res) => res.json())
-          .then((res: DangerConfig) => {
-            console.log("[Config] got config from server", res);
-            set(() => ({ ...res }));
+          .then((res: Object) => {
+            console.log("[Auth] got Auth State from server", res);
+            if (res.status === "1") {
+              console.log("------");
 
-            if (!res.enableGPT4) {
-              ALL_MODELS.forEach((model) => {
-                if (model.name.startsWith("gpt-4")) {
-                  (model as any).available = false;
-                }
-              });
+              set(() => ({ hasAuthorized: true }));
             }
+            // set(() => ({ ...res }));
 
-            if ((res as any).botHello) {
-              BOT_HELLO.content = (res as any).botHello;
-            }
+            // if (!res.enableGPT4) {
+            //   ALL_MODELS.forEach((model) => {
+            //     if (model.name.startsWith("gpt-4")) {
+            //       (model as any).available = false;
+            //     }
+            //   });
+            // }
+            // if ((res as any).botHello) {
+            //   BOT_HELLO.content = (res as any).botHello;
+            // }
           })
           .catch(() => {
             console.error("[Config] failed to fetch config");

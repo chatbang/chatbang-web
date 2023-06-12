@@ -8,9 +8,15 @@ import Locale from "../locales";
 
 import BotIcon from "../icons/bot.svg";
 
-export function AuthPage() {
+export function AuthPage(props: {
+  // 用户验证类型，普通用户 or 管理员
+  type: "access" | "admin";
+}) {
   const navigate = useNavigate();
+  // 更新auth状态
   const access = useAccessStore();
+
+  const authType = props.type;
 
   const goHome = () => navigate(Path.Home);
 
@@ -37,7 +43,7 @@ export function AuthPage() {
         <IconButton
           text={Locale.Auth.Confirm}
           type="primary"
-          onClick={goHome}
+          onClick={access.isAuthorized}
         />
         <IconButton text={Locale.Auth.Later} onClick={goHome} />
       </div>
