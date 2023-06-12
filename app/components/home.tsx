@@ -50,6 +50,10 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
   loading: () => <Loading noLogo />,
 });
 
+const AdminPage = dynamic(async () => (await import("./admin")).AdminPage, {
+  loading: () => <div>管理</div>,
+});
+
 export function useSwitchTheme() {
   const config = useAppConfig();
 
@@ -131,6 +135,7 @@ function Screen() {
               <Route path={Path.Masks} element={<MaskPage />} />
               <Route path={Path.Chat} element={<Chat />} />
               <Route path={Path.Settings} element={<Settings />} />
+              <Route path={Path.Admin} element={<AdminPage />} />
             </Routes>
           </div>
         </>

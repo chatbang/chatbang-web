@@ -186,6 +186,21 @@ export function SideBar(props: { className?: string }) {
             shadow
           />
         </div>
+        <div>
+          <IconButton
+            text={"管理员"}
+            onClick={() => {
+              // if (config.dontShowMaskSplashScreen) {
+              //   chatStore.newSession();
+              //   navigate(Path.Chat);
+              // } else {
+              //   navigate(Path.NewChat);
+              // }
+              navigate(Path.Admin);
+            }}
+            shadow
+          />
+        </div>
       </div>
 
       <div
