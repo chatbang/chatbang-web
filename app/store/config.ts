@@ -23,7 +23,7 @@ export const DEFAULT_CONFIG = {
   fontSize: 14,
   theme: Theme.Auto as Theme,
   sendPreviewBubble: true, // 发送消息时是否显示预览气泡
-  sidebarWidth: 300,
+  sidebarWidth: 100,
 
   disablePromptHint: false, // 是否禁用提示信息
 

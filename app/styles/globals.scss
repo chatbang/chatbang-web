@@ -61,7 +61,8 @@
 
   --window-width: 90vw;
   --window-height: 90vh;
-  --sidebar-width: 300px;
+  --sidebar-width: 100px;
+  --chat-sidebar-width: 300px;
   --window-content-width: calc(100% - var(--sidebar-width));
   --message-max-width: 80%;
   --full-height: 100%;
@@ -72,6 +73,7 @@
     --window-width: 100vw;
     --window-height: var(--full-height);
     --sidebar-width: 100vw;
+    --chat-sidebar-width: 0;
     --window-content-width: var(--window-width);
     --message-max-width: 100%;
   }

@@ -9,6 +9,7 @@ import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
+import ChatIcon from "../icons/chat.svg";
 
 import Locale from "../locales";
 
@@ -133,23 +134,39 @@ export function SideBar(props: { className?: string }) {
           onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
           shadow
         />
+        <IconButton
+          icon={<ChatIcon />}
+          text={shouldNarrow ? undefined : Locale.Chat.Name}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => {
+            navigate(Path.Chat);
+          }}
+          shadow
+        />
+        <IconButton
+          text={shouldNarrow ? undefined : "管理员"}
+          icon={<PluginIcon />}
+          onClick={() => {
+            // if (config.dontShowMaskSplashScreen) {
+            //   chatStore.newSession();
+            //   navigate(Path.Chat);
+            // } else {
+            //   navigate(Path.NewChat);
+            // }
+            navigate(Path.Admin);
+          }}
+          shadow
+        />
         {/*<IconButton*/}
-        {/*  icon={<PluginIcon />}*/}
-        {/*  text={shouldNarrow ? undefined : Locale.Plugin.Name}*/}
+        {/*  icon={<ChatIcon />}*/}
+        {/*  text={shouldNarrow ? undefined : Locale.Chat.Name}*/}
         {/*  className={styles["sidebar-bar-button"]}*/}
         {/*  onClick={() => showToast(Locale.WIP)}*/}
         {/*  shadow*/}
         {/*/>*/}
       </div>
-
-      <div
-        className={styles["sidebar-body"]}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            navigate(Path.Home);
-          }
-        }}
-      >
+      {/*FIXME:做了手机隐藏，但还需要调整*/}
+      <div className={styles["sidebar-body"] + " " + styles.mobile}>
         <ChatList narrow={shouldNarrow} />
       </div>
 
@@ -171,7 +188,8 @@ export function SideBar(props: { className?: string }) {
             </Link>
           </div>
         </div>
-        <div>
+        {/*FIXME:做了手机隐藏，但还需要调整*/}
+        <div className={styles.mobile}>
           <IconButton
             icon={<AddIcon />}
             text={shouldNarrow ? undefined : Locale.Home.NewChat}
@@ -186,27 +204,12 @@ export function SideBar(props: { className?: string }) {
             shadow
           />
         </div>
-        <div>
-          <IconButton
-            text={"管理员"}
-            onClick={() => {
-              // if (config.dontShowMaskSplashScreen) {
-              //   chatStore.newSession();
-              //   navigate(Path.Chat);
-              // } else {
-              //   navigate(Path.NewChat);
-              // }
-              navigate(Path.Admin);
-            }}
-            shadow
-          />
-        </div>
       </div>
 
-      <div
-        className={styles["sidebar-drag"]}
-        onMouseDown={(e) => onDragMouseDown(e as any)}
-      ></div>
+      {/*<div*/}
+      {/*  className={styles["sidebar-drag"]}*/}
+      {/*  onMouseDown={(e) => onDragMouseDown(e as any)}*/}
+      {/*></div>*/}
     </div>
   );
 }

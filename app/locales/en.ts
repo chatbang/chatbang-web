@@ -31,7 +31,7 @@ const en: RequiredLocaleType = {
     Rename: "Rename Chat",
     Typing: "Typing…",
     Input: (submitKey: string) => {
-      var inputHints = `${submitKey} to send`;
+      let inputHints = `${submitKey} to send`;
       if (submitKey === String(SubmitKey.Enter)) {
         inputHints += ", Shift + Enter to wrap";
       }
@@ -184,6 +184,7 @@ const en: RequiredLocaleType = {
   },
   Store: {
     DefaultTopic: "New Conversation",
+    UploadData: "Upload Data",
     BotHello: "Hello! How can I assist you today?",
     Error: "Something went wrong, please try again later.",
     Prompt: {

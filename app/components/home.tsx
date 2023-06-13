@@ -1,5 +1,7 @@
 "use client";
 
+import { ChatSideBar } from "@/app/components/chat-sidebar";
+
 require("../polyfill");
 
 import { useState, useEffect } from "react";
@@ -107,6 +109,7 @@ function Screen() {
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
+  const isChat = location.pathname === Path.Chat;
   const isMobileScreen = useMobileScreen();
 
   useEffect(() => {
@@ -122,11 +125,15 @@ function Screen() {
     >
       {isAuth ? (
         <>
-          <AuthPage />
+          <AuthPage type={"admin"} />
         </>
       ) : (
         <>
           <SideBar className={isHome ? styles["sidebar-show"] : ""} />
+
+          <ChatSideBar
+            className={isChat || isMobileScreen ? "" : styles["mobile"]}
+          />
 
           <div className={styles["window-content"]} id={SlotID.AppBody}>
             <Routes>
