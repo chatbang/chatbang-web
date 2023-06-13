@@ -17,7 +17,7 @@ export interface AccessControlStore {
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   enabledAccessControl: () => boolean;
-  isAuthorized: () => void;
+  isAuthorized: () => boolean;
   fetch: () => void;
   refresh: () => void;
 }
@@ -63,9 +63,9 @@ export const useAccessStore = create<AccessControlStore>()(
       isAuthorized() {
         get().fetch();
         // has token or has code or disabled access control
-        // return (
-        //   !!get().token || !!get().accessCode || !get().enabledAccessControl()
-        // );
+        return (
+          !!get().token || !!get().accessCode || !get().enabledAccessControl()
+        );
       },
       // 获取授权信息
       fetch() {
@@ -81,7 +81,7 @@ export const useAccessStore = create<AccessControlStore>()(
           },
         })
           .then((res) => res.json())
-          .then((res: Object) => {
+          .then((res: { status: string; [k: string]: any }) => {
             console.log("[Auth] got Auth State from server", res);
             if (res.status === "1") {
               console.log("------");
