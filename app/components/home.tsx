@@ -56,6 +56,13 @@ const AdminPage = dynamic(async () => (await import("./admin")).AdminPage, {
   loading: () => <div>管理</div>,
 });
 
+const ExplorePage = dynamic(
+  async () => (await import("./explore")).ExplorePage,
+  {
+    loading: () => <Loading noLogo />,
+  },
+);
+
 export function useSwitchTheme() {
   const config = useAppConfig();
 
@@ -143,6 +150,7 @@ function Screen() {
               <Route path={Path.Chat} element={<Chat />} />
               <Route path={Path.Settings} element={<Settings />} />
               <Route path={Path.Admin} element={<AdminPage />} />
+              <Route path={Path.Explore} element={<ExplorePage />} />
             </Routes>
           </div>
         </>

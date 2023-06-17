@@ -264,6 +264,21 @@ const en: RequiredLocaleType = {
     Create: "Create",
     Edit: "Edit",
   },
+  Explore: {
+    Title: "Explore",
+    Search: "Search course teachers",
+    Create: "Create",
+    Item: {
+      Chat: "Chat",
+      View: "View",
+      Edit: "Edit",
+      Delete: "Delete",
+      DeleteConfirm: "Confirm to delete?",
+    },
+    EditModal: {
+      Save: "Save",
+    },
+  },
 };
 
 export default en;

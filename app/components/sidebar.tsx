@@ -127,11 +127,18 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
+        {/*<IconButton*/}
+        {/*  icon={<MaskIcon />}*/}
+        {/*  text={shouldNarrow ? undefined : Locale.Mask.Name}*/}
+        {/*  className={styles["sidebar-bar-button"]}*/}
+        {/*  onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}*/}
+        {/*  shadow*/}
+        {/*/>  */}
         <IconButton
           icon={<MaskIcon />}
           text={shouldNarrow ? undefined : Locale.Mask.Name}
           className={styles["sidebar-bar-button"]}
-          onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
+          onClick={() => navigate(Path.Explore)}
           shadow
         />
         <IconButton
@@ -165,7 +172,6 @@ export function SideBar(props: { className?: string }) {
         {/*  shadow*/}
         {/*/>*/}
       </div>
-      {/*FIXME:做了手机隐藏，但还需要调整*/}
       <div className={styles["sidebar-body"] + " " + styles.mobile}>
         <ChatList narrow={shouldNarrow} />
       </div>
@@ -188,7 +194,6 @@ export function SideBar(props: { className?: string }) {
             </Link>
           </div>
         </div>
-        {/*FIXME:做了手机隐藏，但还需要调整*/}
         <div className={styles.mobile}>
           <IconButton
             icon={<AddIcon />}

@@ -261,6 +261,21 @@ const cn = {
     Create: "新建",
     Edit: "编辑",
   },
+  Explore: {
+    Title: "探索",
+    Search: "搜索课程教师",
+    Create: "新建",
+    Item: {
+      Chat: "去提问",
+      View: "查看",
+      Edit: "编辑",
+      Delete: "删除",
+      DeleteConfirm: "确认删除？",
+    },
+    EditModal: {
+      Save: "保存",
+    },
+  },
 };
 
 type DeepPartial<T> = T extends object
