@@ -4,13 +4,11 @@ import { ErrorBoundary } from "./error";
 import styles from "./explore.module.scss";
 
 import DownloadIcon from "../icons/download.svg";
-import UploadIcon from "../icons/upload.svg";
 import EditIcon from "../icons/edit.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
 import EyeIcon from "../icons/eye.svg";
-import CopyIcon from "../icons/copy.svg";
 
 import { DEFAULT_MASK_AVATAR, Mask, useMaskStore } from "../store/mask";
 import { ChatMessage, ModelConfig, useAppConfig, useChatStore } from "../store";
@@ -36,6 +34,7 @@ export function MaskAvatar(props: { mask: Mask }) {
   );
 }
 
+// 编辑弹窗
 export function MaskConfig(props: {
   mask: Mask;
   updateMask: Updater<Mask>;
@@ -181,6 +180,7 @@ export function ContextPrompts(props: {
 
   return (
     <>
+      {/*新增的预设对话*/}
       <div className={chatStyle["context-prompt"]} style={{ marginBottom: 20 }}>
         {context.map((c, i) => (
           <ContextPromptItem
@@ -190,7 +190,7 @@ export function ContextPrompts(props: {
             remove={() => removeContextPrompt(i)}
           />
         ))}
-
+        {/*新增预设对话按钮*/}
         <div className={chatStyle["context-prompt-row"]}>
           <IconButton
             icon={<AddIcon />}
@@ -245,7 +245,7 @@ export function ExplorePage() {
 
   return (
     <ErrorBoundary>
-      <div className={styles["mask-page"]}>
+      <div className={styles["explore-page"]}>
         <div className="window-header">
           <div className="window-header-title">
             <div className="window-header-main-title">
@@ -264,8 +264,8 @@ export function ExplorePage() {
           </div>
         </div>
 
-        <div className={styles["mask-page-body"]}>
-          <div className={styles["mask-filter"]}>
+        <div className={styles["explore-page-body"]}>
+          <div className={styles["explore-filter"]}>
             <input
               type="text"
               className={styles["search-bar"]}
@@ -274,7 +274,7 @@ export function ExplorePage() {
               onInput={(e) => onSearch(e.currentTarget.value)}
             />
             <IconButton
-              className={styles["mask-create"]}
+              className={styles["explore-create"]}
               icon={<AddIcon />}
               text={Locale.Mask.Page.Create}
               bordered
@@ -285,23 +285,25 @@ export function ExplorePage() {
             />
           </div>
 
-          <div>
+          <div className={styles["explore-box"]}>
             {masks.map((m) => (
-              <div className={styles["mask-item"]} key={m.id}>
-                <div className={styles["mask-header"]}>
-                  <div className={styles["mask-icon"]}>
+              <div className={styles["explore-item"]} key={m.id}>
+                <div className={styles["explore-header"]}>
+                  <div className={styles["explore-icon"]}>
                     <MaskAvatar mask={m} />
                   </div>
-                  <div className={styles["mask-title"]}>
-                    <div className={styles["mask-name"]}>{m.name}</div>
-                    <div className={styles["mask-info"] + " one-line"}>
-                      {`${Locale.Mask.Item.Info(m.context.length)} / ${
-                        ALL_LANG_OPTIONS[m.lang]
-                      } / ${m.modelConfig.model}`}
+                  <div className={styles["explore-title"]}>
+                    <div className={styles["explore-name"]}>{m.name}</div>
+                    <div className={styles["explore-info"] + " one-line"}>
+                      {`${Locale.Mask.Item.Info(m.context.length)}`}
                     </div>
                   </div>
                 </div>
-                <div className={styles["mask-actions"]}>
+                <div className={styles["explore-session"]}>
+                  我是{m.name}
+                  的描述信息，针对这个角色的描述信息，对课程进行解答，快速解决课前准备问题。
+                </div>
+                <div className={styles["explore-actions"]}>
                   <IconButton
                     icon={<AddIcon />}
                     text={Locale.Explore.Item.Chat}
@@ -342,7 +344,7 @@ export function ExplorePage() {
       </div>
 
       {editingMask && (
-        <div className="modal-mask">
+        <div className="modal-explore">
           <Modal
             title={Locale.Mask.EditModal.Title(editingMask?.builtin)}
             onClose={closeMaskModal}

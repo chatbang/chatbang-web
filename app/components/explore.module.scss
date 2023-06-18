@@ -1,14 +1,15 @@
 @import "../styles/animation.scss";
-.mask-page {
+
+.explore-page {
   height: 100%;
   display: flex;
   flex-direction: column;
 
-  .mask-page-body {
+  .explore-page-body {
     padding: 20px;
     overflow-y: auto;
 
-    .mask-filter {
+    .explore-filter {
       width: 100%;
       max-width: 100%;
       margin-bottom: 20px;
@@ -23,12 +24,12 @@
         min-width: 0;
       }
 
-      .mask-filter-lang {
+      .explore-filter-lang {
         height: 100%;
         margin-left: 10px;
       }
 
-      .mask-create {
+      .explore-create {
         height: 100%;
         margin-left: 10px;
         box-sizing: border-box;
@@ -36,71 +37,80 @@
       }
     }
 
-    .mask-item {
+    .explore-box {
+      margin-bottom: -20px;
       display: flex;
-      justify-content: space-between;
-      padding: 20px;
-      border: var(--border-in-light);
-      animation: slide-in ease 0.3s;
+      flex-wrap: wrap;
 
-      &:not(:last-child) {
-        border-bottom: 0;
-      }
+      .explore-item {
+        width: 27.4%;
+        padding: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        border: var(--border-in-light);
+        border-radius: 10px;
+        animation: slide-in ease 0.3s;
 
-      &:first-child {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-      }
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
 
-      &:last-child {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-      }
+        &:hover {
+          box-shadow: #cde8f3 1px 1px 5px 1px;
+          border-color: #fff;
+        }
 
-      .mask-header {
-        display: flex;
-        align-items: center;
-
-        .mask-icon {
+        .explore-header {
           display: flex;
           align-items: center;
-          justify-content: center;
-          margin-right: 10px;
-        }
 
-        .mask-title {
-          .mask-name {
-            font-size: 14px;
-            font-weight: bold;
+          .explore-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
           }
-          .mask-info {
-            font-size: 12px;
+
+          .explore-title {
+            .explore-name {
+              font-size: 14px;
+              font-weight: bold;
+            }
+
+            .explore-info {
+              font-size: 12px;
+            }
           }
         }
-      }
 
-      .mask-actions {
-        display: flex;
-        flex-wrap: nowrap;
-        transition: all ease 0.3s;
-      }
-
-      @media screen and (max-width: 600px) {
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 10px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        box-shadow: var(--card-shadow);
-
-        &:not(:last-child) {
-          border-bottom: var(--border-in-light);
+        .explore-session {
+          margin-top: 10px;
+          font-size: 14px;
         }
 
-        .mask-actions {
-          width: 100%;
-          justify-content: space-between;
-          padding-top: 10px;
+        .explore-actions {
+          display: flex;
+          flex-wrap: nowrap;
+          transition: all ease 0.3s;
+        }
+
+        @media screen and (max-width: 600px) {
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 10px;
+          border-radius: 10px;
+          margin-bottom: 20px;
+          box-shadow: var(--card-shadow);
+
+          &:not(:last-child) {
+            border-bottom: var(--border-in-light);
+          }
+
+          .explore-actions {
+            width: 100%;
+            justify-content: space-between;
+            padding-top: 10px;
+          }
         }
       }
     }
