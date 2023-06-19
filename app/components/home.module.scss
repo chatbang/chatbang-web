@@ -42,7 +42,7 @@
   width: var(--sidebar-width);
   box-sizing: border-box;
   padding: 20px;
-  background-color: var(--second);
+  background-color: var(--sidebar-background);
   display: flex;
   flex-direction: column;
   box-shadow: inset -2px 0px 2px 0px rgb(0, 0, 0, 0.05);
@@ -55,6 +55,16 @@
 
     .sidebar-bar-button {
       flex-grow: 1;
+      width: 60px;
+      height: 40px;
+      background: none;
+
+      //设置下层的button
+      & > div {
+        width: auto;
+        height: inherit;
+        transform: scale(0.7);
+      }
 
       &:not(:last-child) {
         margin-right: 10px;
@@ -68,7 +78,7 @@
   width: var(--chat-sidebar-width);
   box-sizing: border-box;
   padding: 20px;
-  background-color: var(--second);
+  background-color: var(--sidebar-background);
   display: flex;
   flex-direction: column;
   box-shadow: inset -2px 0px 2px 0px rgb(0, 0, 0, 0.05);
@@ -170,6 +180,10 @@
   position: absolute;
   right: 0;
   bottom: 18px;
+  width: fit-content;
+  height: 40px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .sidebar-title {
@@ -261,6 +275,7 @@
   .sidebar-sub-title {
     display: none;
   }
+
   .sidebar-logo {
     position: relative;
     display: flex;
@@ -356,6 +371,7 @@
 .chat-sidebar-tail {
   display: flex;
   padding-top: 20px;
+
   .new-chat-button {
     flex: 1;
   }
@@ -551,6 +567,7 @@
 
       @include single-line();
     }
+
     .hint-content {
       font-size: 12px;
 

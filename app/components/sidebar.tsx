@@ -4,12 +4,14 @@ import styles from "./home.module.scss";
 
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
-import ChatGptIcon from "../icons/chatgpt.svg";
+import ChatLogoIcon from "../icons/chat-logo.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
-import ChatIcon from "../icons/chat.svg";
+import ChatIcon from "../icons/chat-default.svg";
+import ExploreIcon from "../icons/explore-default.svg";
+import KnowledgeIcon from "../icons/knowledge-default.svg";
 
 import Locale from "../locales";
 
@@ -122,11 +124,12 @@ export function SideBar(props: { className?: string }) {
         <div className={styles["sidebar-title"]}>ChatBang</div>
         <div className={styles["sidebar-sub-title"]}>专属你的AI解答助手</div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
-          <ChatGptIcon />
+          <ChatLogoIcon />
         </div>
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
+        {/*---保留原代码：---*/}
         {/*<IconButton*/}
         {/*  icon={<MaskIcon />}*/}
         {/*  text={shouldNarrow ? undefined : Locale.Mask.Name}*/}
@@ -135,24 +138,23 @@ export function SideBar(props: { className?: string }) {
         {/*  shadow*/}
         {/*/>  */}
         <IconButton
-          icon={<MaskIcon />}
-          text={shouldNarrow ? undefined : Locale.Mask.Name}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => navigate(Path.Explore)}
-          shadow
-        />
-        <IconButton
           icon={<ChatIcon />}
           text={shouldNarrow ? undefined : Locale.Chat.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
             navigate(Path.Chat);
           }}
-          shadow
         />
         <IconButton
+          icon={<ExploreIcon />}
+          text={shouldNarrow ? undefined : Locale.Mask.Name}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => navigate(Path.Explore)}
+        />
+        <IconButton
+          icon={<KnowledgeIcon />}
           text={shouldNarrow ? undefined : "管理员"}
-          icon={<PluginIcon />}
+          className={styles["sidebar-bar-button"]}
           onClick={() => {
             // if (config.dontShowMaskSplashScreen) {
             //   chatStore.newSession();
@@ -162,7 +164,6 @@ export function SideBar(props: { className?: string }) {
             // }
             navigate(Path.Admin);
           }}
-          shadow
         />
         {/*<IconButton*/}
         {/*  icon={<ChatIcon />}*/}
@@ -211,6 +212,7 @@ export function SideBar(props: { className?: string }) {
         </div>
       </div>
 
+      {/*---保留原代码：---*/}
       {/*<div*/}
       {/*  className={styles["sidebar-drag"]}*/}
       {/*  onMouseDown={(e) => onDragMouseDown(e as any)}*/}
