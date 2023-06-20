@@ -10,8 +10,11 @@ import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import ChatIcon from "../icons/chat-default.svg";
+import ChatActiveIcon from "../icons/chat-active.svg";
 import ExploreIcon from "../icons/explore-default.svg";
+import ExploreActiveIcon from "../icons/explore-active.svg";
 import KnowledgeIcon from "../icons/knowledge-default.svg";
+import KnowledgeActiveIcon from "../icons/knowledge-active.svg";
 
 import Locale from "../locales";
 
@@ -25,9 +28,10 @@ import {
   REPO_URL,
 } from "../constant";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
+import { useRouteMatch } from "@/app/hooks";
 import { showToast } from "./ui-lib";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
@@ -110,7 +114,12 @@ export function SideBar(props: { className?: string }) {
   // drag side bar
   const { onDragMouseDown, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
+  const location = useLocation();
   const config = useAppConfig();
+
+  const isChatPage = useRouteMatch(Path.Chat) || location.pathname === "/";
+  const isExplorePage = useRouteMatch(Path.Explore);
+  const isKnowledgePage = useRouteMatch(Path.Knowledge);
 
   useHotKey();
 
@@ -138,7 +147,7 @@ export function SideBar(props: { className?: string }) {
         {/*  shadow*/}
         {/*/>  */}
         <IconButton
-          icon={<ChatIcon />}
+          icon={isChatPage ? <ChatActiveIcon /> : <ChatIcon />}
           text={shouldNarrow ? undefined : Locale.Chat.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
@@ -146,14 +155,14 @@ export function SideBar(props: { className?: string }) {
           }}
         />
         <IconButton
-          icon={<ExploreIcon />}
+          icon={isExplorePage ? <ExploreActiveIcon /> : <ExploreIcon />}
           text={shouldNarrow ? undefined : Locale.Mask.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => navigate(Path.Explore)}
         />
         <IconButton
-          icon={<KnowledgeIcon />}
-          text={shouldNarrow ? undefined : "管理员"}
+          icon={isKnowledgePage ? <KnowledgeActiveIcon /> : <KnowledgeIcon />}
+          text={shouldNarrow ? undefined : "知识库"}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
             // if (config.dontShowMaskSplashScreen) {
@@ -162,7 +171,7 @@ export function SideBar(props: { className?: string }) {
             // } else {
             //   navigate(Path.NewChat);
             // }
-            navigate(Path.Admin);
+            navigate(Path.Knowledge);
           }}
         />
         {/*<IconButton*/}

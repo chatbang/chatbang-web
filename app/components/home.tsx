@@ -52,9 +52,12 @@ const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
   loading: () => <Loading noLogo />,
 });
 
-const AdminPage = dynamic(async () => (await import("./admin")).AdminPage, {
-  loading: () => <div>管理</div>,
-});
+const KnowledgePage = dynamic(
+  async () => (await import("./knowledge")).KnowledgePage,
+  {
+    loading: () => <Loading noLogo />,
+  },
+);
 
 const ExplorePage = dynamic(
   async () => (await import("./explore")).ExplorePage,
@@ -149,7 +152,7 @@ function Screen() {
               <Route path={Path.Masks} element={<MaskPage />} />
               <Route path={Path.Chat} element={<Chat />} />
               <Route path={Path.Settings} element={<Settings />} />
-              <Route path={Path.Admin} element={<AdminPage />} />
+              <Route path={Path.Knowledge} element={<KnowledgePage />} />
               <Route path={Path.Explore} element={<ExplorePage />} />
             </Routes>
           </div>
