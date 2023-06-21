@@ -148,7 +148,7 @@ export function SideBar(props: { className?: string }) {
         {/*/>  */}
         <IconButton
           icon={isChatPage ? <ChatActiveIcon /> : <ChatIcon />}
-          text={shouldNarrow ? undefined : Locale.Chat.Name}
+          text={shouldNarrow ? Locale.Chat.Name : undefined}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
             navigate(Path.Chat);
@@ -156,13 +156,13 @@ export function SideBar(props: { className?: string }) {
         />
         <IconButton
           icon={isExplorePage ? <ExploreActiveIcon /> : <ExploreIcon />}
-          text={shouldNarrow ? undefined : Locale.Mask.Name}
+          text={shouldNarrow ? Locale.Mask.Name : undefined}
           className={styles["sidebar-bar-button"]}
           onClick={() => navigate(Path.Explore)}
         />
         <IconButton
           icon={isKnowledgePage ? <KnowledgeActiveIcon /> : <KnowledgeIcon />}
-          text={shouldNarrow ? undefined : "知识库"}
+          text={shouldNarrow ? "知识库" : undefined}
           className={styles["sidebar-bar-button"]}
           onClick={() => {
             // if (config.dontShowMaskSplashScreen) {

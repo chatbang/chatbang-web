@@ -120,6 +120,7 @@ function Screen() {
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
   const isChat = location.pathname === Path.Chat;
+  const isKnowledge = location.pathname === Path.Knowledge;
   const isMobileScreen = useMobileScreen();
 
   useEffect(() => {

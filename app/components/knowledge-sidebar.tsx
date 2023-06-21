@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import styles from "./chat-sidebar.module.scss";
+import styles from "./knowledge-sidebar.module.scss";
 
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
@@ -27,9 +27,12 @@ import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showToast } from "./ui-lib";
 
-const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
-  loading: () => null,
-});
+const KnowledgeList = dynamic(
+  async () => (await import("./knowledge-list")).KnowledgeList,
+  {
+    loading: () => null,
+  },
+);
 
 function useHotKey() {
   const chatStore = useChatStore();
@@ -53,7 +56,7 @@ function useHotKey() {
   });
 }
 
-export function ChatSideBar(props: { className?: string }) {
+export function KnowledgeSideBar(props: { className?: string }) {
   const chatStore = useChatStore();
 
   const navigate = useNavigate();
@@ -74,7 +77,7 @@ export function ChatSideBar(props: { className?: string }) {
   useHotKey();
 
   return (
-    <div className={`${styles["chat-sidebar"]} ${props.className}`}>
+    <div className={`${styles["knowledge-sidebar"]} ${props.className}`}>
       <div className={styles["sidebar-header-bar"]}>
         {/*<IconButton*/}
         {/*    icon={<PluginIcon/>}*/}
@@ -83,16 +86,16 @@ export function ChatSideBar(props: { className?: string }) {
         {/*    onClick={() => showToast(Locale.WIP)}*/}
         {/*    shadow*/}
         {/*/>*/}
-        <p className={styles["sidebar-sub-title"]}>最近的聊天</p>
+        <p className={styles["sidebar-sub-title"]}>知识库</p>
       </div>
 
       <div className={styles["sidebar-body"]}>
-        <ChatList />
+        <KnowledgeList />
       </div>
 
-      <div className={styles["chat-sidebar-tail"]}>
+      <div className={styles["knowledge-sidebar-tail"]}>
         <IconButton
-          className={styles["new-chat-button"]}
+          className={styles["new-knowledge-button"]}
           icon={<AddIcon />}
           text={Locale.Home.NewChat}
           onClick={() => {
