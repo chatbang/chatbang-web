@@ -79,25 +79,10 @@ export function KnowledgeSideBar(props: { className?: string }) {
   return (
     <div className={`${styles["knowledge-sidebar"]} ${props.className}`}>
       <div className={styles["sidebar-header-bar"]}>
-        {/*<IconButton*/}
-        {/*    icon={<PluginIcon/>}*/}
-        {/*    text={shouldNarrow ? undefined : Locale.Store.UploadData}*/}
-        {/*    className={styles["sidebar-bar-button"]}*/}
-        {/*    onClick={() => showToast(Locale.WIP)}*/}
-        {/*    shadow*/}
-        {/*/>*/}
         <p className={styles["sidebar-sub-title"]}>知识库</p>
-      </div>
-
-      <div className={styles["sidebar-body"]}>
-        <KnowledgeList />
-      </div>
-
-      <div className={styles["knowledge-sidebar-tail"]}>
         <IconButton
           className={styles["new-knowledge-button"]}
           icon={<AddIcon />}
-          text={Locale.Home.NewChat}
           onClick={() => {
             if (config.dontShowMaskSplashScreen) {
               chatStore.newSession();
@@ -108,6 +93,10 @@ export function KnowledgeSideBar(props: { className?: string }) {
           }}
           shadow
         />
+      </div>
+
+      <div className={styles["sidebar-body"]}>
+        <KnowledgeList />
       </div>
     </div>
   );

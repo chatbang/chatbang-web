@@ -1,6 +1,7 @@
 "use client";
 
 import { ChatSideBar } from "@/app/components/chat-sidebar";
+import { KnowledgeSideBar } from "@/app/components/knowledge-sidebar";
 
 require("../polyfill");
 
@@ -122,6 +123,7 @@ function Screen() {
   const isChat = location.pathname === Path.Chat;
   const isKnowledge = location.pathname === Path.Knowledge;
   const isMobileScreen = useMobileScreen();
+  console.log(isKnowledge, isMobileScreen);
 
   useEffect(() => {
     loadAsyncGoogleFont();
@@ -145,6 +147,7 @@ function Screen() {
           <ChatSideBar
             className={isChat || isMobileScreen ? "" : styles["mobile"]}
           />
+          <KnowledgeSideBar className={isKnowledge ? "" : styles["mobile"]} />
 
           <div className={styles["window-content"]} id={SlotID.AppBody}>
             <Routes>

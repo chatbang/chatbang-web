@@ -10,7 +10,7 @@
   --gray: rgb(250, 250, 250);
   --primary: rgb(29, 147, 171);
   --second: rgb(231, 248, 255);
-  --sidebar-background: rgb(242 242 242);
+  --sidebar-background: rgb(251, 254, 255);
   --bang-blue: rgb(66, 115, 252);
   --bang-gray: rgb(50, 57, 77);
   --hover-color: #f3f3f3;
@@ -277,6 +277,24 @@ div.math {
     align-items: flex-end;
   }
 }
+
+.modal-knowledge {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: var(--full-height);
+  width: 100vw;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 600px) {
+    align-items: flex-end;
+  }
+}
+
 
 .link {
   font-size: 12px;

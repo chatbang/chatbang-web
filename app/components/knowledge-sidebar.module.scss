@@ -12,18 +12,14 @@
 
   .sidebar-header-bar {
     display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
-
-    .sidebar-bar-button {
-      flex-grow: 1;
-
-      &:not(:last-child) {
-        margin-right: 10px;
-      }
-    }
   }
 }
 
+.knowledge-sidebar.mobile {
+  display: none;
+}
 
 @media only screen and (max-width: 600px) {
   .knowledge-sidebar {
@@ -50,13 +46,4 @@
   flex: 1;
   overflow: auto;
   overflow-x: hidden;
-}
-
-.knowledge-sidebar-tail {
-  display: flex;
-  padding-top: 20px;
-
-  .new-knowledge-button {
-    flex: 1;
-  }
 }

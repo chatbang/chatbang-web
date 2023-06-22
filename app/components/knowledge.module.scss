@@ -1,8 +1,108 @@
-.knowledge-page {
-  display: flex;
-  padding: 20px;
+@import "../styles/animation.scss";
 
-  .knowledge-page-main {
-    width: 100%;
+.knowledge-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .knowledge-page-body {
+    padding: 20px;
+    overflow-y: auto;
+
+    .knowledge-filter {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 20px;
+      animation: slide-in ease 0.3s;
+      height: 40px;
+
+      display: flex;
+
+      .search-bar {
+        flex-grow: 1;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .knowledge-filter-lang {
+        height: 100%;
+        margin-left: 10px;
+      }
+
+      .knowledge-create {
+        height: 100%;
+        margin-left: 10px;
+        box-sizing: border-box;
+        min-width: 80px;
+      }
+    }
+
+    .knowledge-box {
+      margin-bottom: -20px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+
+      .knowledge-item {
+        flex: 1;
+        //width: 60vw;
+        padding: 20px;
+        //margin-right: 20px;
+        margin-bottom: 20px;
+        border: var(--border-in-light);
+        border-radius: 10px;
+        animation: slide-in ease 0.3s;
+
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+
+        &:hover {
+          box-shadow: #cde8f3 1px 1px 5px 1px;
+          border-color: #fff;
+        }
+
+        .knowledge-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .knowledge-title {
+            font-size: 14px;
+            font-weight: bold;
+          }
+        }
+
+        .knowledge-session {
+          margin-top: 10px;
+          font-size: 14px;
+        }
+
+        .knowledge-actions {
+          display: flex;
+          flex-wrap: nowrap;
+          transition: all ease 0.3s;
+        }
+
+        @media screen and (max-width: 600px) {
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 10px;
+          border-radius: 10px;
+          margin-bottom: 20px;
+          box-shadow: var(--card-shadow);
+
+          &:not(:last-child) {
+            border-bottom: var(--border-in-light);
+          }
+
+          .knowledge-actions {
+            width: 100%;
+            justify-content: space-between;
+            padding-top: 10px;
+          }
+        }
+      }
+    }
   }
 }
