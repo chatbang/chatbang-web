@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "../auth";
 
 // auth相关
 async function handle(req: NextRequest) {
-  const { code } = await req.json();
-  // 请求后端api验证
+  const authResult = auth(req);
 
-  return NextResponse.json({ status: "1", error: false });
+  if (authResult.error) {
+    return NextResponse.json(authResult, {
+      status: 401,
+    });
+  }
+
+  return NextResponse.json({ isAdmin: authResult.isAdmin, error: false });
 }
 
 export const GET = handle;

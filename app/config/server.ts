@@ -5,6 +5,7 @@ declare global {
     interface ProcessEnv {
       OPENAI_API_KEY?: string;
       CODE?: string;
+      ADMIN_CODE?: string;
       BASE_URL?: string;
       PROXY_URL?: string;
       VERCEL?: string;
@@ -27,6 +28,19 @@ const ACCESS_CODES = (function getAccessCodes(): Set<string> {
   }
 })();
 
+const ADMIN_ACCESS_CODES = (function getAdminAccessCodes(): Set<string> {
+  const code = process.env.ADMIN_CODE;
+
+  try {
+    const codes = (code?.split(",") ?? [])
+      .filter((v) => !!v)
+      .map((v) => md5.hash(v.trim()));
+    return new Set(codes);
+  } catch (e) {
+    return new Set();
+  }
+})();
+
 export const getServerSideConfig = () => {
   if (typeof process === "undefined") {
     throw Error(
@@ -38,7 +52,8 @@ export const getServerSideConfig = () => {
     apiKey: process.env.OPENAI_API_KEY,
     code: process.env.CODE,
     codes: ACCESS_CODES,
-    needCode: ACCESS_CODES.size > 0,
+    adminCodes: ADMIN_ACCESS_CODES,
+    needCode: ACCESS_CODES.size > 0 || ADMIN_ACCESS_CODES.size > 0,
     baseUrl: process.env.BASE_URL,
     proxyUrl: process.env.PROXY_URL,
     isVercel: !!process.env.VERCEL,
