@@ -7,7 +7,9 @@
   flex-direction: column;
 
   .auth-logo {
-    transform: scale(1.4);
+    svg{
+      height: 70px;
+    }
   }
 
   .auth-title {
@@ -17,6 +19,7 @@
   }
 
   .auth-tips {
+    color: #545454;
     font-size: 14px;
   }
 
