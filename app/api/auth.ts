@@ -42,8 +42,8 @@ export function auth(req: NextRequest) {
 
   if (
     serverConfig.needCode &&
-    (!serverConfig.codes.has(hashedCode) ||
-      !serverConfig.adminCodes.has(hashedCode)) &&
+    !serverConfig.codes.has(hashedCode) &&
+    !serverConfig.adminCodes.has(hashedCode) &&
     !token
   ) {
     return {
