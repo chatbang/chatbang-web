@@ -63,6 +63,11 @@ export const useAccessStore = create<AccessControlStore>()(
       isAuthorized() {
         get().fetch();
         console.log(get());
+        console.log(
+          !!get().token,
+          !!get().accessCode,
+          !get().enabledAccessControl(),
+        );
         // has token or has code or disabled access control
         return (
           !!get().token || !!get().accessCode || !get().enabledAccessControl()
@@ -84,11 +89,11 @@ export const useAccessStore = create<AccessControlStore>()(
           .then((res) => res.json())
           .then((res: { status: string; [k: string]: any }) => {
             console.log("[Auth] got Auth State from server", res);
-            // if (res.status === "1") {
-            console.log("------");
+            if (res.status === "1") {
+              console.log("------");
 
-            set(() => ({ hasAuthorized: true }));
-            // }
+              set(() => ({ hasAuthorized: true }));
+            }
             // set(() => ({ ...res }));
 
             // if (!res.enableGPT4) {
