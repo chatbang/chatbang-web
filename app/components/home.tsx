@@ -1,5 +1,8 @@
 "use client";
 
+import { ChatSideBar } from "@/app/components/chat-sidebar";
+import { KnowledgeSideBar } from "@/app/components/knowledge-sidebar";
+
 require("../polyfill");
 
 import { useState, useEffect } from "react";
@@ -49,6 +52,20 @@ const NewChat = dynamic(async () => (await import("./new-chat")).NewChat, {
 const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
   loading: () => <Loading noLogo />,
 });
+
+const KnowledgePage = dynamic(
+  async () => (await import("./knowledge")).KnowledgePage,
+  {
+    loading: () => <Loading noLogo />,
+  },
+);
+
+const ExplorePage = dynamic(
+  async () => (await import("./explore")).ExplorePage,
+  {
+    loading: () => <Loading noLogo />,
+  },
+);
 
 export function useSwitchTheme() {
   const config = useAppConfig();
@@ -100,11 +117,13 @@ const loadAsyncGoogleFont = () => {
 };
 
 function Screen() {
-  const config = useAppConfig();
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
+  const isChat = location.pathname === Path.Chat;
+  const isKnowledge = location.pathname === Path.Knowledge;
   const isMobileScreen = useMobileScreen();
+  console.log(isKnowledge, isMobileScreen);
 
   useEffect(() => {
     loadAsyncGoogleFont();
@@ -114,20 +133,21 @@ function Screen() {
     <div
       className={
         styles.container +
-        ` ${
-          config.tightBorder && !isMobileScreen
-            ? styles["tight-container"]
-            : styles.container
-        }`
+        ` ${!isMobileScreen ? styles["tight-container"] : styles.container}`
       }
     >
       {isAuth ? (
         <>
-          <AuthPage />
+          <AuthPage type={"admin"} />
         </>
       ) : (
         <>
           <SideBar className={isHome ? styles["sidebar-show"] : ""} />
+
+          <ChatSideBar
+            className={isChat || isMobileScreen ? "" : styles["mobile"]}
+          />
+          <KnowledgeSideBar className={isKnowledge ? "" : styles["mobile"]} />
 
           <div className={styles["window-content"]} id={SlotID.AppBody}>
             <Routes>
@@ -136,6 +156,8 @@ function Screen() {
               <Route path={Path.Masks} element={<MaskPage />} />
               <Route path={Path.Chat} element={<Chat />} />
               <Route path={Path.Settings} element={<Settings />} />
+              <Route path={Path.Knowledge} element={<KnowledgePage />} />
+              <Route path={Path.Explore} element={<ExplorePage />} />
             </Routes>
           </div>
         </>

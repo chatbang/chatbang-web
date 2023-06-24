@@ -4,12 +4,17 @@ import styles from "./home.module.scss";
 
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
-import GithubIcon from "../icons/github.svg";
-import ChatGptIcon from "../icons/chatgpt.svg";
+import ChatLogoIcon from "../icons/chat-logo.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
+import ChatIcon from "../icons/chat-default.svg";
+import ChatActiveIcon from "../icons/chat-active.svg";
+import ExploreIcon from "../icons/explore-default.svg";
+import ExploreActiveIcon from "../icons/explore-active.svg";
+import KnowledgeIcon from "../icons/knowledge-default.svg";
+import KnowledgeActiveIcon from "../icons/knowledge-active.svg";
 
 import Locale from "../locales";
 
@@ -23,9 +28,10 @@ import {
   REPO_URL,
 } from "../constant";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
+import { useRouteMatch } from "@/app/hooks";
 import { showToast } from "./ui-lib";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
@@ -108,7 +114,12 @@ export function SideBar(props: { className?: string }) {
   // drag side bar
   const { onDragMouseDown, shouldNarrow } = useDragSideBar();
   const navigate = useNavigate();
+  const location = useLocation();
   const config = useAppConfig();
+
+  const isChatPage = useRouteMatch(Path.Chat) || location.pathname === "/";
+  const isExplorePage = useRouteMatch(Path.Explore);
+  const isKnowledgePage = useRouteMatch(Path.Knowledge);
 
   useHotKey();
 
@@ -119,40 +130,59 @@ export function SideBar(props: { className?: string }) {
       }`}
     >
       <div className={styles["sidebar-header"]}>
-        <div className={styles["sidebar-title"]}>ChatGPT Next</div>
-        <div className={styles["sidebar-sub-title"]}>
-          Build your own AI assistant.
-        </div>
+        <div className={styles["sidebar-title"]}>ChatBang</div>
+        <div className={styles["sidebar-sub-title"]}>专属你的AI解答助手</div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
-          <ChatGptIcon />
+          <ChatLogoIcon />
         </div>
       </div>
 
       <div className={styles["sidebar-header-bar"]}>
+        {/*---保留原代码：---*/}
+        {/*<IconButton*/}
+        {/*  icon={<MaskIcon />}*/}
+        {/*  text={shouldNarrow ? undefined : Locale.Mask.Name}*/}
+        {/*  className={styles["sidebar-bar-button"]}*/}
+        {/*  onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}*/}
+        {/*  shadow*/}
+        {/*/>  */}
         <IconButton
-          icon={<MaskIcon />}
-          text={shouldNarrow ? undefined : Locale.Mask.Name}
+          icon={isChatPage ? <ChatActiveIcon /> : <ChatIcon />}
+          text={shouldNarrow ? Locale.Chat.Name : undefined}
           className={styles["sidebar-bar-button"]}
-          onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
-          shadow
+          onClick={() => {
+            navigate(Path.Chat);
+          }}
         />
         <IconButton
-          icon={<PluginIcon />}
-          text={shouldNarrow ? undefined : Locale.Plugin.Name}
+          icon={isExplorePage ? <ExploreActiveIcon /> : <ExploreIcon />}
+          text={shouldNarrow ? Locale.Mask.Name : undefined}
           className={styles["sidebar-bar-button"]}
-          onClick={() => showToast(Locale.WIP)}
-          shadow
+          onClick={() => navigate(Path.Explore)}
         />
+        <IconButton
+          icon={isKnowledgePage ? <KnowledgeActiveIcon /> : <KnowledgeIcon />}
+          text={shouldNarrow ? "知识库" : undefined}
+          className={styles["sidebar-bar-button"]}
+          onClick={() => {
+            // if (config.dontShowMaskSplashScreen) {
+            //   chatStore.newSession();
+            //   navigate(Path.Chat);
+            // } else {
+            //   navigate(Path.NewChat);
+            // }
+            navigate(Path.Knowledge);
+          }}
+        />
+        {/*<IconButton*/}
+        {/*  icon={<ChatIcon />}*/}
+        {/*  text={shouldNarrow ? undefined : Locale.Chat.Name}*/}
+        {/*  className={styles["sidebar-bar-button"]}*/}
+        {/*  onClick={() => showToast(Locale.WIP)}*/}
+        {/*  shadow*/}
+        {/*/>*/}
       </div>
-
-      <div
-        className={styles["sidebar-body"]}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            navigate(Path.Home);
-          }
-        }}
-      >
+      <div className={styles["sidebar-body"] + " " + styles.mobile}>
         <ChatList narrow={shouldNarrow} />
       </div>
 
@@ -173,13 +203,8 @@ export function SideBar(props: { className?: string }) {
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
           </div>
-          <div className={styles["sidebar-action"]}>
-            <a href={REPO_URL} target="_blank">
-              <IconButton icon={<GithubIcon />} shadow />
-            </a>
-          </div>
         </div>
-        <div>
+        <div className={styles.mobile}>
           <IconButton
             icon={<AddIcon />}
             text={shouldNarrow ? undefined : Locale.Home.NewChat}
@@ -196,10 +221,11 @@ export function SideBar(props: { className?: string }) {
         </div>
       </div>
 
-      <div
-        className={styles["sidebar-drag"]}
-        onMouseDown={(e) => onDragMouseDown(e as any)}
-      ></div>
+      {/*---保留原代码：---*/}
+      {/*<div*/}
+      {/*  className={styles["sidebar-drag"]}*/}
+      {/*  onMouseDown={(e) => onDragMouseDown(e as any)}*/}
+      {/*></div>*/}
     </div>
   );
 }

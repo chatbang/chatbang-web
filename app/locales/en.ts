@@ -18,6 +18,7 @@ const en: RequiredLocaleType = {
     ChatItemCount: (count: number) => `${count} messages`,
   },
   Chat: {
+    Name: "Chat",
     SubTitle: (count: number) => `${count} messages with ChatGPT`,
     Actions: {
       ChatList: "Go To Chat List",
@@ -31,7 +32,7 @@ const en: RequiredLocaleType = {
     Rename: "Rename Chat",
     Typing: "Typing…",
     Input: (submitKey: string) => {
-      var inputHints = `${submitKey} to send`;
+      let inputHints = `${submitKey} to send`;
       if (submitKey === String(SubmitKey.Enter)) {
         inputHints += ", Shift + Enter to wrap";
       }
@@ -113,7 +114,6 @@ const en: RequiredLocaleType = {
     },
     SendKey: "Send Key",
     Theme: "Theme",
-    TightBorder: "Tight Border",
     SendPreviewBubble: {
       Title: "Send Preview Bubble",
       SubTitle: "Preview markdown in bubble",
@@ -185,6 +185,7 @@ const en: RequiredLocaleType = {
   },
   Store: {
     DefaultTopic: "New Conversation",
+    UploadData: "Upload Data",
     BotHello: "Hello! How can I assist you today?",
     Error: "Something went wrong, please try again later.",
     Prompt: {
@@ -262,6 +263,21 @@ const en: RequiredLocaleType = {
     Close: "Close",
     Create: "Create",
     Edit: "Edit",
+  },
+  Explore: {
+    Title: "Explore",
+    Search: "Search course teachers",
+    Create: "Create",
+    Item: {
+      Chat: "Chat",
+      View: "View",
+      Edit: "Edit",
+      Delete: "Delete",
+      DeleteConfirm: "Confirm to delete?",
+    },
+    EditModal: {
+      Save: "Save",
+    },
   },
 };
 

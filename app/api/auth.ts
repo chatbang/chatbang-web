@@ -40,11 +40,21 @@ export function auth(req: NextRequest) {
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
 
-  if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
+  if (
+    serverConfig.needCode &&
+    !serverConfig.codes.has(hashedCode) &&
+    !serverConfig.adminCodes.has(hashedCode) &&
+    !token
+  ) {
     return {
       error: true,
       msg: !accessCode ? "empty access code" : "wrong access code",
     };
+  }
+
+  let isAdmin = false;
+  if (serverConfig.adminCodes.has(hashedCode)) {
+    isAdmin = true;
   }
 
   // if user does not provide an api key, inject system api key
@@ -61,6 +71,7 @@ export function auth(req: NextRequest) {
   }
 
   return {
+    isAdmin,
     error: false,
   };
 }

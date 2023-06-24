@@ -17,6 +17,7 @@ const cn = {
     ChatItemCount: (count: number) => `${count} 条对话`,
   },
   Chat: {
+    Name: "对话",
     SubTitle: (count: number) => `与 ChatGPT 的 ${count} 条对话`,
     Actions: {
       ChatList: "查看消息列表",
@@ -30,7 +31,7 @@ const cn = {
     Rename: "重命名对话",
     Typing: "正在输入…",
     Input: (submitKey: string) => {
-      var inputHints = `${submitKey} 发送`;
+      let inputHints = `${submitKey} 发送`;
       if (submitKey === String(SubmitKey.Enter)) {
         inputHints += "，Shift + Enter 换行";
       }
@@ -112,7 +113,6 @@ const cn = {
     },
     SendKey: "发送键",
     Theme: "主题",
-    TightBorder: "无边框模式",
     SendPreviewBubble: {
       Title: "预览气泡",
       SubTitle: "在预览气泡中预览 Markdown 内容",
@@ -183,6 +183,7 @@ const cn = {
   },
   Store: {
     DefaultTopic: "新的聊天",
+    UploadData: "上传数据",
     BotHello: "有什么可以帮你的吗",
     Error: "出错了，稍后重试吧",
     Prompt: {
@@ -259,6 +260,21 @@ const cn = {
     Close: "关闭",
     Create: "新建",
     Edit: "编辑",
+  },
+  Explore: {
+    Title: "探索",
+    Search: "搜索课程教师",
+    Create: "新建",
+    Item: {
+      Chat: "去提问",
+      View: "查看",
+      Edit: "编辑",
+      Delete: "删除",
+      DeleteConfirm: "确认删除？",
+    },
+    EditModal: {
+      Save: "保存",
+    },
   },
 };
 

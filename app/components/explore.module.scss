@@ -1,0 +1,118 @@
+@import "../styles/animation.scss";
+
+.explore-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .explore-page-body {
+    padding: 20px;
+    overflow-y: auto;
+
+    .explore-filter {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 20px;
+      animation: slide-in ease 0.3s;
+      height: 40px;
+
+      display: flex;
+
+      .search-bar {
+        flex-grow: 1;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .explore-filter-lang {
+        height: 100%;
+        margin-left: 10px;
+      }
+
+      .explore-create {
+        height: 100%;
+        margin-left: 10px;
+        box-sizing: border-box;
+        min-width: 80px;
+      }
+    }
+
+    .explore-box {
+      margin-bottom: -20px;
+      display: flex;
+      flex-wrap: wrap;
+
+      .explore-item {
+        width: 27.4%;
+        padding: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        border: var(--border-in-light);
+        border-radius: 10px;
+        animation: slide-in ease 0.3s;
+
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+
+        &:hover {
+          box-shadow: #cde8f3 1px 1px 5px 1px;
+          border-color: #fff;
+        }
+
+        .explore-header {
+          display: flex;
+          align-items: center;
+
+          .explore-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+          }
+
+          .explore-title {
+            .explore-name {
+              font-size: 14px;
+              font-weight: bold;
+            }
+
+            .explore-info {
+              font-size: 12px;
+            }
+          }
+        }
+
+        .explore-session {
+          margin-top: 10px;
+          font-size: 14px;
+        }
+
+        .explore-actions {
+          display: flex;
+          flex-wrap: nowrap;
+          transition: all ease 0.3s;
+        }
+
+        @media screen and (max-width: 600px) {
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 10px;
+          border-radius: 10px;
+          margin-bottom: 20px;
+          box-shadow: var(--card-shadow);
+
+          &:not(:last-child) {
+            border-bottom: var(--border-in-light);
+          }
+
+          .explore-actions {
+            width: 100%;
+            justify-content: space-between;
+            padding-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}
