@@ -15,7 +15,7 @@ import EyeIcon from "../icons/eye.svg";
 import { DEFAULT_MASK_AVATAR, Mask, useMaskStore } from "../store/mask";
 import { ChatMessage, ModelConfig, useAppConfig, useChatStore } from "../store";
 import { ROLES } from "../client/api";
-import { Input, List, ListItem, Modal, Popover, Select } from "./ui-lib";
+import { List, ListItem, Modal, Popover, Select } from "./ui-lib";
 import { Avatar, AvatarPicker } from "./emoji";
 import Locale, { AllLangs, ALL_LANG_OPTIONS, Lang } from "../locales";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +27,7 @@ import { Updater } from "../typing";
 import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
 import { BUILTIN_MASK_STORE } from "../masks";
+import { Button, Input } from "antd";
 
 export function MaskAvatar(props: { mask: Mask }) {
   return props.mask.avatar !== DEFAULT_MASK_AVATAR ? (
@@ -140,7 +141,7 @@ function ContextPromptItem(props: {
         value={props.prompt.content}
         type="text"
         className={chatStyle["context-content"]}
-        rows={focusingInput ? 5 : 1}
+        // rows={focusingInput ? 5 : 1}
         onFocus={() => setFocusingInput(true)}
         onBlur={() => setFocusingInput(false)}
         onInput={(e) =>
@@ -273,23 +274,23 @@ export function KnowledgePage() {
 
         <div className={styles["knowledge-page-body"]}>
           <div className={styles["knowledge-filter"]}>
-            <input
+            <Input
               type="text"
               className={styles["search-bar"]}
               placeholder="搜索课程库"
               autoFocus
               onInput={(e) => onSearch(e.currentTarget.value)}
             />
-            <IconButton
+            <Button
               className={styles["knowledge-create"]}
               icon={<AddIcon />}
-              text={Locale.Mask.Page.Create}
-              bordered
               onClick={() => {
                 const createdMask = maskStore.create();
                 setEditingMaskId(createdMask.id);
               }}
-            />
+            >
+              {Locale.Mask.Page.Create}
+            </Button>
           </div>
 
           <div className={styles["knowledge-box"]}>
