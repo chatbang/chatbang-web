@@ -20,7 +20,7 @@
   }
 
   &.primary {
-    background-color: var(--primary);
+    background-color: var(--bang-blue);
     color: white;
 
     path {
@@ -38,7 +38,7 @@
 }
 
 .icon-button:hover {
-  border-color: var(--primary);
+  border-color: var(--bang-blue);
 }
 
 .icon-button-icon {

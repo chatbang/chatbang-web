@@ -9,16 +9,9 @@ import Locale from "../locales";
 import BotIcon from "../icons/bot.svg";
 import ChatLogoIcon from "../icons/chat-logo.svg";
 
-export function AuthPage(props: {
-  // 用户验证类型，普通用户 or 管理员
-  type: "access" | "admin";
-}) {
+export function AuthPage() {
   const navigate = useNavigate();
-  // 更新auth状态
   const access = useAccessStore();
-
-  const authType = props.type;
-
   const goHome = () => navigate(Path.Home);
 
   return (
@@ -43,9 +36,11 @@ export function AuthPage(props: {
         <IconButton
           text={Locale.Auth.Confirm}
           type="primary"
-          onClick={access.isAuthorized}
+          onClick={async () => {
+            await access.fetchAuth();
+            access.isAuthorized() && goHome();
+          }}
         />
-        <IconButton text={Locale.Auth.Later} onClick={goHome} />
       </div>
     </div>
   );

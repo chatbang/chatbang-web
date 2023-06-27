@@ -8,7 +8,7 @@ import { ALL_MODELS } from "./config";
 export interface AccessControlStore {
   accessCode: string;
   token: string;
-  hasAuthorized: boolean;
+  isAdmin: boolean; // 是否是管理员
 
   needCode: boolean;
   hideUserApiKey: boolean;
@@ -17,9 +17,8 @@ export interface AccessControlStore {
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   enabledAccessControl: () => boolean;
-  isAuthorized: () => boolean;
-  fetch: () => void;
-  refresh: () => void;
+  isAuthorized: () => boolean; // 是否已经授权
+  fetchAuth: () => void; // 请求授权信息
 }
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
@@ -27,24 +26,16 @@ let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 export const useAccessStore = create<AccessControlStore>()(
   persist(
     (set, get) => ({
-      // 原设置中预设的密码
-      // chatbang 中从api获取
-      token: "123456",
+      token: "",
       accessCode: "",
+      isAdmin: false,
       needCode: true,
       hideUserApiKey: false,
-      hasAuthorized: false,
       openaiUrl: "/api/openai/",
 
-      // 更新验证状态
-      refresh() {
-        if (get().hasAuthorized) {
-          get().isAuthorized();
-        }
-      },
-
+      // 是否启用了访问控制
       enabledAccessControl() {
-        get().fetch();
+        // get().fetchAuth();
         return get().needCode;
       },
       // 用户输入密码
@@ -55,44 +46,33 @@ export const useAccessStore = create<AccessControlStore>()(
       updateToken(token: string) {
         set(() => ({ token }));
       },
-      // 获取授权信息
-      getAuthInfo() {
-        return get().hasAuthorized;
-      },
       // 进行验证
       isAuthorized() {
-        get().fetch();
-        console.log(get());
+        if (fetchState === 0) get().fetchAuth();
+        // 有 token or 禁用 access control，即可验证通过
         console.log(
-          !!get().token,
-          !!get().accessCode,
-          !get().enabledAccessControl(),
+          "isAuthorized：",
+          !!get().token || !get().enabledAccessControl(),
         );
-        // has token or has code or disabled access control
-        return (
-          !!get().token || !!get().accessCode || !get().enabledAccessControl()
-        );
+        return !!get().token || !get().enabledAccessControl();
       },
       // 获取授权信息
-      fetch() {
-        if (fetchState > 0) return;
+      async fetchAuth() {
         fetchState = 1;
-        fetch("/api/auth", {
+        await fetch("/api/auth", {
           method: "post",
           body: JSON.stringify({ code: get().accessCode }),
           headers: {
-            "Content-Type": "application/json",
-            "x-requested-with": "XMLHttpRequest",
-            "Authorization-token": get().token,
+            ...getHeaders(),
           },
         })
           .then((res) => res.json())
-          .then((res: { status: string; [k: string]: any }) => {
-            console.log("[Auth] got Auth State from server", res);
-            if (res.status === "1") {
-              console.log("------");
-
-              set(() => ({ hasAuthorized: true }));
+          .then((res: { status: number; [k: string]: any }) => {
+            console.log("----------->", res);
+            const { isAdmin, status } = res;
+            if (status === 200) {
+              this.updateToken(get().accessCode);
+              set(() => ({ isAdmin }));
             }
             // set(() => ({ ...res }));
 

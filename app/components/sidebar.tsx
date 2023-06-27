@@ -18,7 +18,7 @@ import KnowledgeActiveIcon from "../icons/knowledge-active.svg";
 
 import Locale from "../locales";
 
-import { useAppConfig, useChatStore } from "../store";
+import { useAccessStore, useAppConfig, useChatStore } from "../store";
 
 import {
   MAX_SIDEBAR_WIDTH,
@@ -116,6 +116,7 @@ export function SideBar(props: { className?: string }) {
   const navigate = useNavigate();
   const location = useLocation();
   const config = useAppConfig();
+  const isAdmin = useAccessStore((s) => s.isAdmin);
 
   const isChatPage = useRouteMatch(Path.Chat) || location.pathname === "/";
   const isExplorePage = useRouteMatch(Path.Explore);
@@ -160,20 +161,22 @@ export function SideBar(props: { className?: string }) {
           className={styles["sidebar-bar-button"]}
           onClick={() => navigate(Path.Explore)}
         />
-        <IconButton
-          icon={isKnowledgePage ? <KnowledgeActiveIcon /> : <KnowledgeIcon />}
-          text={shouldNarrow ? "知识库" : undefined}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => {
-            // if (config.dontShowMaskSplashScreen) {
-            //   chatStore.newSession();
-            //   navigate(Path.Chat);
-            // } else {
-            //   navigate(Path.NewChat);
-            // }
-            navigate(Path.Knowledge);
-          }}
-        />
+        {isAdmin ? (
+          <IconButton
+            icon={isKnowledgePage ? <KnowledgeActiveIcon /> : <KnowledgeIcon />}
+            text={shouldNarrow ? "知识库" : undefined}
+            className={styles["sidebar-bar-button"]}
+            onClick={() => {
+              // if (config.dontShowMaskSplashScreen) {
+              //   chatStore.newSession();
+              //   navigate(Path.Chat);
+              // } else {
+              //   navigate(Path.NewChat);
+              // }
+              navigate(Path.Knowledge);
+            }}
+          />
+        ) : null}
         {/*<IconButton*/}
         {/*  icon={<ChatIcon />}*/}
         {/*  text={shouldNarrow ? undefined : Locale.Chat.Name}*/}

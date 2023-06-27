@@ -23,10 +23,12 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
 import { AuthPage } from "./auth";
+import { useAccessStore } from "@/app/store";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -118,12 +120,20 @@ const loadAsyncGoogleFont = () => {
 
 function Screen() {
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
   const isChat = location.pathname === Path.Chat;
   const isKnowledge = location.pathname === Path.Knowledge;
   const isMobileScreen = useMobileScreen();
-  console.log(isKnowledge, isMobileScreen);
+  const access = useAccessStore();
+
+  // 路由拦截 ,按理说不应该写在这里，等了解路由后再重写
+  if (!isAuth && !access.isAuthorized()) {
+    localStorage.clear();
+    navigate(Path.Auth);
+    console.log("没有授权，需要跳转到auth页面");
+  }
 
   useEffect(() => {
     loadAsyncGoogleFont();
@@ -138,7 +148,7 @@ function Screen() {
     >
       {isAuth ? (
         <>
-          <AuthPage type={"admin"} />
+          <AuthPage />
         </>
       ) : (
         <>

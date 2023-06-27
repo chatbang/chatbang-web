@@ -6,12 +6,17 @@ async function handle(req: NextRequest) {
   const authResult = auth(req);
 
   if (authResult.error) {
-    return NextResponse.json(authResult, {
+    return NextResponse.json({
+      ...authResult,
       status: 401,
     });
   }
 
-  return NextResponse.json({ isAdmin: authResult.isAdmin, error: false });
+  return NextResponse.json({
+    status: 200,
+    isAdmin: authResult.isAdmin,
+    error: false,
+  });
 }
 
 export const GET = handle;
