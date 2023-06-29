@@ -50,6 +50,7 @@ const en: RequiredLocaleType = {
     Download: "Download",
     MessageFromYou: "Message From You",
     MessageFromChatGPT: "Message From ChatGPT",
+    MessageFromBangGPT: "Message From BangGPT",
     Share: "Share to ShareGPT",
     Format: {
       Title: "Export Format",

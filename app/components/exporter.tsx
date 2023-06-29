@@ -8,6 +8,7 @@ import { copyToClipboard, downloadAs, useMobileScreen } from "../utils";
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import ChatGptIcon from "../icons/chatgpt.png";
+import ChatBangIcon from "../icons/chat-logo.png";
 import ShareIcon from "../icons/share.svg";
 import BotIcon from "../icons/bot.png";
 
@@ -180,20 +181,20 @@ export function MessageExporter() {
               ))}
             </Select>
           </ListItem>
-          <ListItem
-            title={Locale.Export.IncludeContext.Title}
-            subTitle={Locale.Export.IncludeContext.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={exportConfig.includeContext}
-              onChange={(e) => {
-                updateExportConfig(
-                  (config) => (config.includeContext = e.currentTarget.checked),
-                );
-              }}
-            ></input>
-          </ListItem>
+          {/*<ListItem*/}
+          {/*  title={Locale.Export.IncludeContext.Title}*/}
+          {/*  subTitle={Locale.Export.IncludeContext.SubTitle}*/}
+          {/*>*/}
+          {/*  <input*/}
+          {/*    type="checkbox"*/}
+          {/*    checked={exportConfig.includeContext}*/}
+          {/*    onChange={(e) => {*/}
+          {/*      updateExportConfig(*/}
+          {/*        (config) => (config.includeContext = e.currentTarget.checked),*/}
+          {/*      );*/}
+          {/*    }}*/}
+          {/*  ></input>*/}
+          {/*</ListItem>*/}
         </List>
         <MessageSelector
           selection={selection}
@@ -429,18 +430,18 @@ export function ImagePreviewer(props: {
         <div className={styles["chat-info"]}>
           <div className={styles["logo"] + " no-dark"}>
             <NextImage
-              src={ChatGptIcon.src}
+              src={ChatBangIcon.src}
               alt="logo"
-              width={50}
-              height={50}
+              width={80}
+              height={30}
             />
           </div>
 
           <div>
             <div className={styles["main-title"]}>ChatBang</div>
-            <div className={styles["sub-title"]}>
-              github.com/Yidadaa/ChatGPT-Next-Web
-            </div>
+            {/*<div className={styles["sub-title"]}>*/}
+            {/*  github.com/Yidadaa/ChatGPT-Next-Web*/}
+            {/*</div>*/}
             <div className={styles["icons"]}>
               <ExportAvatar avatar={config.avatar} />
               <span className={styles["icon-space"]}>&</span>
@@ -448,17 +449,17 @@ export function ImagePreviewer(props: {
             </div>
           </div>
           <div>
+            {/*<div className={styles["chat-info-item"]}>*/}
+            {/*  Model: {mask.modelConfig.model}*/}
+            {/*</div>*/}
             <div className={styles["chat-info-item"]}>
-              Model: {mask.modelConfig.model}
+              消息: {props.messages.length}
             </div>
             <div className={styles["chat-info-item"]}>
-              Messages: {props.messages.length}
+              标题: {session.topic}
             </div>
             <div className={styles["chat-info-item"]}>
-              Topic: {session.topic}
-            </div>
-            <div className={styles["chat-info-item"]}>
-              Time:{" "}
+              时间:{" "}
               {new Date(
                 props.messages.at(-1)?.date ?? Date.now(),
               ).toLocaleString()}
@@ -502,7 +503,7 @@ export function MarkdownPreviewer(props: {
       .map((m) => {
         return m.role === "user"
           ? `## ${Locale.Export.MessageFromYou}:\n${m.content}`
-          : `## ${Locale.Export.MessageFromChatGPT}:\n${m.content.trim()}`;
+          : `## ${Locale.Export.MessageFromBangGPT}:\n${m.content.trim()}`;
       })
       .join("\n\n");
 

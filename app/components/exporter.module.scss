@@ -114,7 +114,7 @@
       margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       position: relative;
       overflow: hidden;
 
@@ -129,9 +129,8 @@
 
       .logo {
         position: absolute;
-        top: 0px;
-        left: 0px;
-        height: 50%;
+        top: 7px;
+        right: 7px;
         transform: scale(1.5);
       }
 
@@ -158,11 +157,13 @@
       }
 
       .chat-info-item {
+        position: relative;
+        z-index: 2;
         font-size: 12px;
         color: var(--primary);
         padding: 2px 15px;
         border-radius: 10px;
-        background-color: var(--white);
+        background-color: rgba(255,255,255,59%);
         box-shadow: var(--card-shadow);
 
         &:not(:last-child) {
