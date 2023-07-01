@@ -61,14 +61,15 @@ export function MaskConfig(props: {
 
   return (
     <>
-      <ContextPrompts
-        context={props.mask.context}
-        updateContext={(updater) => {
-          const context = props.mask.context.slice();
-          updater(context);
-          props.updateMask((mask) => (mask.context = context));
-        }}
-      />
+      {/*原代码：新增预设对话*/}
+      {/*<ContextPrompts*/}
+      {/*  context={props.mask.context}*/}
+      {/*  updateContext={(updater) => {*/}
+      {/*    const context = props.mask.context.slice();*/}
+      {/*    updater(context);*/}
+      {/*    props.updateMask((mask) => (mask.context = context));*/}
+      {/*  }}*/}
+      {/*/>*/}
 
       <List>
         <ListItem title={Locale.Mask.Config.Avatar}>
@@ -92,62 +93,69 @@ export function MaskConfig(props: {
             </div>
           </Popover>
         </ListItem>
-        <ListItem title={Locale.Mask.Config.Name}>
-          <input
-            type="text"
-            value={props.mask.name}
-            onInput={(e) =>
-              props.updateMask((mask) => {
-                mask.name = e.currentTarget.value;
-              })
-            }
-          ></input>
-        </ListItem>
-        <ListItem
-          title={Locale.Mask.Config.HideContext.Title}
-          subTitle={Locale.Mask.Config.HideContext.SubTitle}
-        >
-          <input
-            type="checkbox"
-            checked={props.mask.hideContext}
-            onChange={(e) => {
-              props.updateMask((mask) => {
-                mask.hideContext = e.currentTarget.checked;
-              });
-            }}
-          ></input>
-        </ListItem>
-        {props.shouldSyncFromGlobal ? (
-          <ListItem
-            title={Locale.Mask.Config.Sync.Title}
-            subTitle={Locale.Mask.Config.Sync.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={props.mask.syncGlobalConfig}
-              onChange={(e) => {
-                if (
-                  e.currentTarget.checked &&
-                  confirm(Locale.Mask.Config.Sync.Confirm)
-                ) {
-                  props.updateMask((mask) => {
-                    mask.syncGlobalConfig = e.currentTarget.checked;
-                    mask.modelConfig = { ...globalConfig.modelConfig };
-                  });
-                }
-              }}
-            ></input>
-          </ListItem>
-        ) : null}
+        {/*<ListItem title={Locale.Mask.Config.Name}>*/}
+        {/*  <input*/}
+        {/*    type="text"*/}
+        {/*    value={props.mask.name}*/}
+        {/*    onInput={(e) =>*/}
+        {/*      props.updateMask((mask) => {*/}
+        {/*        mask.name = e.currentTarget.value;*/}
+        {/*      })*/}
+        {/*    }*/}
+        {/*  ></input>*/}
+        {/*</ListItem>*/}
+        {/*---原代码：隐藏预设代码*/}
+        {/*<ListItem*/}
+        {/*  title={Locale.Mask.Config.HideContext.Title}*/}
+        {/*  subTitle={Locale.Mask.Config.HideContext.SubTitle}*/}
+        {/*>*/}
+        {/*  <input*/}
+        {/*    type="checkbox"*/}
+        {/*    checked={props.mask.hideContext}*/}
+        {/*    onChange={(e) => {*/}
+        {/*      props.updateMask((mask) => {*/}
+        {/*        mask.hideContext = e.currentTarget.checked;*/}
+        {/*      });*/}
+        {/*    }}*/}
+        {/*  ></input>*/}
+        {/*</ListItem>*/}
+        {/*---END---*/}
+
+        {/*---原代码：使用全局设置---*/}
+        {/*{props.shouldSyncFromGlobal ? (*/}
+        {/*  <ListItem*/}
+        {/*    title={Locale.Mask.Config.Sync.Title}*/}
+        {/*    subTitle={Locale.Mask.Config.Sync.SubTitle}*/}
+        {/*  >*/}
+        {/*    <input*/}
+        {/*      type="checkbox"*/}
+        {/*      checked={props.mask.syncGlobalConfig}*/}
+        {/*      onChange={(e) => {*/}
+        {/*        if (*/}
+        {/*          e.currentTarget.checked &&*/}
+        {/*          confirm(Locale.Mask.Config.Sync.Confirm)*/}
+        {/*        ) {*/}
+        {/*          props.updateMask((mask) => {*/}
+        {/*            mask.syncGlobalConfig = e.currentTarget.checked;*/}
+        {/*            mask.modelConfig = { ...globalConfig.modelConfig };*/}
+        {/*          });*/}
+        {/*        }*/}
+        {/*      }}*/}
+        {/*    ></input>*/}
+        {/*  </ListItem>*/}
+        {/*) : null}*/}
+        {/*---END---*/}
       </List>
 
-      <List>
-        <ModelConfigList
-          modelConfig={{ ...props.mask.modelConfig }}
-          updateConfig={updateConfig}
-        />
-        {props.extraListItems}
-      </List>
+      {/*---原代码：OpenAI设置*/}
+      {/*<List>*/}
+      {/*  <ModelConfigList*/}
+      {/*    modelConfig={{ ...props.mask.modelConfig }}*/}
+      {/*    updateConfig={updateConfig}*/}
+      {/*  />*/}
+      {/*  {props.extraListItems}*/}
+      {/*</List>*/}
+      {/*---END---*/}
     </>
   );
 }

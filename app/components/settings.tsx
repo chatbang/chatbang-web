@@ -354,31 +354,32 @@ export function Settings() {
               </div>
             </Popover>
           </ListItem>
-
-          <ListItem
-            title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
-            subTitle={
-              checkingUpdate
-                ? Locale.Settings.Update.IsChecking
-                : hasNewVersion
-                ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-                : Locale.Settings.Update.IsLatest
-            }
-          >
-            {checkingUpdate ? (
-              <LoadingIcon />
-            ) : hasNewVersion ? (
-              <Link href={UPDATE_URL} target="_blank" className="link">
-                {Locale.Settings.Update.GoToUpdate}
-              </Link>
-            ) : (
-              <IconButton
-                icon={<ResetIcon></ResetIcon>}
-                text={Locale.Settings.Update.CheckUpdate}
-                onClick={() => checkUpdate(true)}
-              />
-            )}
-          </ListItem>
+          {/*---保留原代码：更新版本---*/}
+          {/*<ListItem*/}
+          {/*  title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}*/}
+          {/*  subTitle={*/}
+          {/*    checkingUpdate*/}
+          {/*      ? Locale.Settings.Update.IsChecking*/}
+          {/*      : hasNewVersion*/}
+          {/*      ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")*/}
+          {/*      : Locale.Settings.Update.IsLatest*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*  {checkingUpdate ? (*/}
+          {/*    <LoadingIcon />*/}
+          {/*  ) : hasNewVersion ? (*/}
+          {/*    <Link href={UPDATE_URL} target="_blank" className="link">*/}
+          {/*      {Locale.Settings.Update.GoToUpdate}*/}
+          {/*    </Link>*/}
+          {/*  ) : (*/}
+          {/*    <IconButton*/}
+          {/*      icon={<ResetIcon></ResetIcon>}*/}
+          {/*      text={Locale.Settings.Update.CheckUpdate}*/}
+          {/*      onClick={() => checkUpdate(true)}*/}
+          {/*    />*/}
+          {/*  )}*/}
+          {/*</ListItem>*/}
+          {/*---END---*/}
 
           <ListItem title={Locale.Settings.SendKey}>
             <Select
@@ -398,197 +399,212 @@ export function Settings() {
             </Select>
           </ListItem>
 
-          <ListItem title={Locale.Settings.Theme}>
-            <Select
-              value={config.theme}
-              onChange={(e) => {
-                updateConfig(
-                  (config) => (config.theme = e.target.value as any as Theme),
-                );
-              }}
-            >
-              {Object.values(Theme).map((v) => (
-                <option value={v} key={v}>
-                  {v}
-                </option>
-              ))}
-            </Select>
-          </ListItem>
+          {/*---原代码：切换主题*/}
+          {/*<ListItem title={Locale.Settings.Theme}>*/}
+          {/*  <Select*/}
+          {/*    value={config.theme}*/}
+          {/*    onChange={(e) => {*/}
+          {/*      updateConfig(*/}
+          {/*        (config) => (config.theme = e.target.value as any as Theme),*/}
+          {/*      );*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    {Object.values(Theme).map((v) => (*/}
+          {/*      <option value={v} key={v}>*/}
+          {/*        {v}*/}
+          {/*      </option>*/}
+          {/*    ))}*/}
+          {/*  </Select>*/}
+          {/*</ListItem>*/}
+          {/*---END---*/}
 
-          <ListItem title={Locale.Settings.Lang.Name}>
-            <Select
-              value={getLang()}
-              onChange={(e) => {
-                changeLang(e.target.value as any);
-              }}
-            >
-              {AllLangs.map((lang) => (
-                <option value={lang} key={lang}>
-                  {ALL_LANG_OPTIONS[lang]}
-                </option>
-              ))}
-            </Select>
-          </ListItem>
+          {/*---保留原代码：切换语言---*/}
+          {/*<ListItem title={Locale.Settings.Lang.Name}>*/}
+          {/*  <Select*/}
+          {/*    value={getLang()}*/}
+          {/*    onChange={(e) => {*/}
+          {/*      changeLang(e.target.value as any);*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    {AllLangs.map((lang) => (*/}
+          {/*      <option value={lang} key={lang}>*/}
+          {/*        {ALL_LANG_OPTIONS[lang]}*/}
+          {/*      </option>*/}
+          {/*    ))}*/}
+          {/*  </Select>*/}
+          {/*</ListItem>*/}
+          {/*---END---*/}
 
-          <ListItem
-            title={Locale.Settings.FontSize.Title}
-            subTitle={Locale.Settings.FontSize.SubTitle}
-          >
-            <InputRange
-              title={`${config.fontSize ?? 14}px`}
-              value={config.fontSize}
-              min="12"
-              max="18"
-              step="1"
-              onChange={(e) =>
-                updateConfig(
-                  (config) =>
-                    (config.fontSize = Number.parseInt(e.currentTarget.value)),
-                )
-              }
-            ></InputRange>
-          </ListItem>
+          {/*---保留原代码：切换字体---*/}
+          {/*<ListItem*/}
+          {/*  title={Locale.Settings.FontSize.Title}*/}
+          {/*  subTitle={Locale.Settings.FontSize.SubTitle}*/}
+          {/*>*/}
+          {/*  <InputRange*/}
+          {/*    title={`${config.fontSize ?? 14}px`}*/}
+          {/*    value={config.fontSize}*/}
+          {/*    min="12"*/}
+          {/*    max="18"*/}
+          {/*    step="1"*/}
+          {/*    onChange={(e) =>*/}
+          {/*      updateConfig(*/}
+          {/*        (config) =>*/}
+          {/*          (config.fontSize = Number.parseInt(e.currentTarget.value)),*/}
+          {/*      )*/}
+          {/*    }*/}
+          {/*  ></InputRange>*/}
+          {/*</ListItem>*/}
+          {/*---END---*/}
 
-          <ListItem
-            title={Locale.Settings.SendPreviewBubble.Title}
-            subTitle={Locale.Settings.SendPreviewBubble.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={config.sendPreviewBubble}
-              onChange={(e) =>
-                updateConfig(
-                  (config) =>
-                    (config.sendPreviewBubble = e.currentTarget.checked),
-                )
-              }
-            ></input>
-          </ListItem>
+          {/*---保留原代码：预览气泡---*/}
+          {/*<ListItem*/}
+          {/*  title={Locale.Settings.SendPreviewBubble.Title}*/}
+          {/*  subTitle={Locale.Settings.SendPreviewBubble.SubTitle}*/}
+          {/*>*/}
+          {/*  <input*/}
+          {/*    type="checkbox"*/}
+          {/*    checked={config.sendPreviewBubble}*/}
+          {/*    onChange={(e) =>*/}
+          {/*      updateConfig(*/}
+          {/*        (config) =>*/}
+          {/*          (config.sendPreviewBubble = e.currentTarget.checked),*/}
+          {/*      )*/}
+          {/*    }*/}
+          {/*  ></input>*/}
+          {/*</ListItem>*/}
+          {/*---END---*/}
 
-          <ListItem
-            title={Locale.Settings.Mask.Title}
-            subTitle={Locale.Settings.Mask.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={!config.dontShowMaskSplashScreen}
-              onChange={(e) =>
-                updateConfig(
-                  (config) =>
-                    (config.dontShowMaskSplashScreen =
-                      !e.currentTarget.checked),
-                )
-              }
-            ></input>
-          </ListItem>
+          {/*---保留原代码：新建聊天时，展示面具启动页面/new-chat---*/}
+          {/*<ListItem*/}
+          {/*  title={Locale.Settings.Mask.Title}*/}
+          {/*  subTitle={Locale.Settings.Mask.SubTitle}*/}
+          {/*>*/}
+          {/*  <input*/}
+          {/*    type="checkbox"*/}
+          {/*    checked={!config.dontShowMaskSplashScreen}*/}
+          {/*    onChange={(e) =>*/}
+          {/*      updateConfig(*/}
+          {/*        (config) =>*/}
+          {/*          (config.dontShowMaskSplashScreen =*/}
+          {/*            !e.currentTarget.checked),*/}
+          {/*      )*/}
+          {/*    }*/}
+          {/*  ></input>*/}
+          {/*</ListItem>*/}
+          {/*---END---*/}
         </List>
 
-        <List>
-          {enabledAccessControl ? (
-            <ListItem
-              title={Locale.Settings.AccessCode.Title}
-              subTitle={Locale.Settings.AccessCode.SubTitle}
-            >
-              <PasswordInput
-                value={accessStore.accessCode}
-                type="text"
-                placeholder={Locale.Settings.AccessCode.Placeholder}
-                onChange={(e) => {
-                  accessStore.updateCode(e.currentTarget.value);
-                }}
-              />
-            </ListItem>
-          ) : (
-            <></>
-          )}
+        {/*---保留原代码：访问密码/API kEY/余额查询---*/}
+        {/*<List>*/}
+        {/*  {enabledAccessControl ? (*/}
+        {/*    <ListItem*/}
+        {/*      title={Locale.Settings.AccessCode.Title}*/}
+        {/*      subTitle={Locale.Settings.AccessCode.SubTitle}*/}
+        {/*    >*/}
+        {/*      <PasswordInput*/}
+        {/*        value={accessStore.accessCode}*/}
+        {/*        type="text"*/}
+        {/*        placeholder={Locale.Settings.AccessCode.Placeholder}*/}
+        {/*        onChange={(e) => {*/}
+        {/*          accessStore.updateCode(e.currentTarget.value);*/}
+        {/*        }}*/}
+        {/*      />*/}
+        {/*    </ListItem>*/}
+        {/*  ) : (*/}
+        {/*    <></>*/}
+        {/*  )}*/}
 
-          {!accessStore.hideUserApiKey ? (
-            <ListItem
-              title={Locale.Settings.Token.Title}
-              subTitle={Locale.Settings.Token.SubTitle}
-            >
-              <PasswordInput
-                value={accessStore.token}
-                type="text"
-                placeholder={Locale.Settings.Token.Placeholder}
-                onChange={(e) => {
-                  accessStore.updateToken(e.currentTarget.value);
-                }}
-              />
-            </ListItem>
-          ) : null}
+        {/*  {!accessStore.hideUserApiKey ? (*/}
+        {/*    <ListItem*/}
+        {/*      title={Locale.Settings.Token.Title}*/}
+        {/*      subTitle={Locale.Settings.Token.SubTitle}*/}
+        {/*    >*/}
+        {/*      <PasswordInput*/}
+        {/*        value={accessStore.token}*/}
+        {/*        type="text"*/}
+        {/*        placeholder={Locale.Settings.Token.Placeholder}*/}
+        {/*        onChange={(e) => {*/}
+        {/*          accessStore.updateToken(e.currentTarget.value);*/}
+        {/*        }}*/}
+        {/*      />*/}
+        {/*    </ListItem>*/}
+        {/*  ) : null}*/}
 
-          <ListItem
-            title={Locale.Settings.Usage.Title}
-            subTitle={
-              showUsage
-                ? loadingUsage
-                  ? Locale.Settings.Usage.IsChecking
-                  : Locale.Settings.Usage.SubTitle(
-                      usage?.used ?? "[?]",
-                      usage?.subscription ?? "[?]",
-                    )
-                : Locale.Settings.Usage.NoAccess
-            }
-          >
-            {!showUsage || loadingUsage ? (
-              <div />
-            ) : (
-              <IconButton
-                icon={<ResetIcon></ResetIcon>}
-                text={Locale.Settings.Usage.Check}
-                onClick={() => checkUsage(true)}
-              />
-            )}
-          </ListItem>
-        </List>
+        {/*  <ListItem*/}
+        {/*    title={Locale.Settings.Usage.Title}*/}
+        {/*    subTitle={*/}
+        {/*      showUsage*/}
+        {/*        ? loadingUsage*/}
+        {/*          ? Locale.Settings.Usage.IsChecking*/}
+        {/*          : Locale.Settings.Usage.SubTitle(*/}
+        {/*              usage?.used ?? "[?]",*/}
+        {/*              usage?.subscription ?? "[?]",*/}
+        {/*            )*/}
+        {/*        : Locale.Settings.Usage.NoAccess*/}
+        {/*    }*/}
+        {/*  >*/}
+        {/*    {!showUsage || loadingUsage ? (*/}
+        {/*      <div />*/}
+        {/*    ) : (*/}
+        {/*      <IconButton*/}
+        {/*        icon={<ResetIcon></ResetIcon>}*/}
+        {/*        text={Locale.Settings.Usage.Check}*/}
+        {/*        onClick={() => checkUsage(true)}*/}
+        {/*      />*/}
+        {/*    )}*/}
+        {/*  </ListItem>*/}
+        {/*</List>*/}
 
-        <List>
-          <ListItem
-            title={Locale.Settings.Prompt.Disable.Title}
-            subTitle={Locale.Settings.Prompt.Disable.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={config.disablePromptHint}
-              onChange={(e) =>
-                updateConfig(
-                  (config) =>
-                    (config.disablePromptHint = e.currentTarget.checked),
-                )
-              }
-            ></input>
-          </ListItem>
+        {/*---保留原代码：禁用提示词补全快捷键"/"、自定义提示词列表---*/}
+        {/*<List>*/}
+        {/*  <ListItem*/}
+        {/*    title={Locale.Settings.Prompt.Disable.Title}*/}
+        {/*    subTitle={Locale.Settings.Prompt.Disable.SubTitle}*/}
+        {/*  >*/}
+        {/*    <input*/}
+        {/*      type="checkbox"*/}
+        {/*      checked={config.disablePromptHint}*/}
+        {/*      onChange={(e) =>*/}
+        {/*        updateConfig(*/}
+        {/*          (config) =>*/}
+        {/*            (config.disablePromptHint = e.currentTarget.checked),*/}
+        {/*        )*/}
+        {/*      }*/}
+        {/*    ></input>*/}
+        {/*  </ListItem>*/}
 
-          <ListItem
-            title={Locale.Settings.Prompt.List}
-            subTitle={Locale.Settings.Prompt.ListCount(
-              builtinCount,
-              customCount,
-            )}
-          >
-            <IconButton
-              icon={<EditIcon />}
-              text={Locale.Settings.Prompt.Edit}
-              onClick={() => setShowPromptModal(true)}
-            />
-          </ListItem>
-        </List>
+        {/*  <ListItem*/}
+        {/*    title={Locale.Settings.Prompt.List}*/}
+        {/*    subTitle={Locale.Settings.Prompt.ListCount(*/}
+        {/*      builtinCount,*/}
+        {/*      customCount,*/}
+        {/*    )}*/}
+        {/*  >*/}
+        {/*    <IconButton*/}
+        {/*      icon={<EditIcon />}*/}
+        {/*      text={Locale.Settings.Prompt.Edit}*/}
+        {/*      onClick={() => setShowPromptModal(true)}*/}
+        {/*    />*/}
+        {/*  </ListItem>*/}
+        {/*</List>*/}
 
-        <List>
-          <ModelConfigList
-            modelConfig={config.modelConfig}
-            updateConfig={(updater) => {
-              const modelConfig = { ...config.modelConfig };
-              updater(modelConfig);
-              config.update((config) => (config.modelConfig = modelConfig));
-            }}
-          />
-        </List>
+        {/*---保留原代码：OpenAI的控制方式---*/}
+        {/*<List>*/}
+        {/*  <ModelConfigList*/}
+        {/*    modelConfig={config.modelConfig}*/}
+        {/*    updateConfig={(updater) => {*/}
+        {/*      const modelConfig = { ...config.modelConfig };*/}
+        {/*      updater(modelConfig);*/}
+        {/*      config.update((config) => (config.modelConfig = modelConfig));*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*</List>*/}
 
-        {shouldShowPromptModal && (
-          <UserPromptModal onClose={() => setShowPromptModal(false)} />
-        )}
+        {/*---保留原代码：自定义提示词列表弹窗---*/}
+        {/*{shouldShowPromptModal && (*/}
+        {/*  <UserPromptModal onClose={() => setShowPromptModal(false)} />*/}
+        {/*)}*/}
+        {/* ---END--- */}
       </div>
     </ErrorBoundary>
   );

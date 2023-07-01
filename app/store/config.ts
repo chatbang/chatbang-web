@@ -27,7 +27,7 @@ export const DEFAULT_CONFIG = {
 
   disablePromptHint: false, // 是否禁用提示信息
 
-  dontShowMaskSplashScreen: false, // dont show splash screen when create chat
+  dontShowMaskSplashScreen: true, // dont show splash screen when create chat
 
   modelConfig: {
     model: "gpt-3.5-turbo" as ModelType, // 模型名称

@@ -161,7 +161,9 @@ export function SideBar(props: { className?: string }) {
           className={styles["sidebar-bar-button"]}
           onClick={() => navigate(Path.Explore)}
         />
-        {isAdmin ? (
+        {/*判断是否是admin权限*/}
+        {/*{isAdmin ? (*/}
+        {true ? (
           <IconButton
             icon={isKnowledgePage ? <KnowledgeActiveIcon /> : <KnowledgeIcon />}
             text={shouldNarrow ? "知识库" : undefined}

@@ -63,7 +63,7 @@ import { ExportMessageModal } from "./exporter";
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
-
+// 设置弹窗
 export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
@@ -75,33 +75,35 @@ export function SessionConfigModel(props: { onClose: () => void }) {
       <Modal
         title={Locale.Context.Edit}
         onClose={() => props.onClose()}
-        actions={[
-          <IconButton
-            key="reset"
-            icon={<ResetIcon />}
-            bordered
-            text={Locale.Chat.Config.Reset}
-            onClick={() => {
-              if (confirm(Locale.Memory.ResetConfirm)) {
-                chatStore.updateCurrentSession(
-                  (session) => (session.memoryPrompt = ""),
-                );
-              }
-            }}
-          />,
-          <IconButton
-            key="copy"
-            icon={<CopyIcon />}
-            bordered
-            text={Locale.Chat.Config.SaveAs}
-            onClick={() => {
-              navigate(Path.Masks);
-              setTimeout(() => {
-                maskStore.create(session.mask);
-              }, 500);
-            }}
-          />,
-        ]}
+        actions={
+          [
+            // <IconButton
+            //   key="reset"
+            //   icon={<ResetIcon />}
+            //   bordered
+            //   text={Locale.Chat.Config.Reset}
+            //   onClick={() => {
+            //     if (confirm(Locale.Memory.ResetConfirm)) {
+            //       chatStore.updateCurrentSession(
+            //         (session) => (session.memoryPrompt = ""),
+            //       );
+            //     }
+            //   }}
+            // />,
+            // <IconButton
+            //   key="copy"
+            //   icon={<CopyIcon />}
+            //   bordered
+            //   text={Locale.Chat.Config.SaveAs}
+            //   onClick={() => {
+            //     navigate(Path.Masks);
+            //     setTimeout(() => {
+            //       maskStore.create(session.mask);
+            //     }, 500);
+            //   }}
+            // />,
+          ]
+        }
       >
         <MaskConfig
           mask={session.mask}
@@ -138,18 +140,19 @@ function PromptToast(props: {
 
   return (
     <div className={chatStyle["prompt-toast"]} key="prompt-toast">
-      {props.showToast && (
-        <div
-          className={chatStyle["prompt-toast-inner"] + " clickable"}
-          role="button"
-          onClick={() => props.setShowModal(true)}
-        >
-          <BrainIcon />
-          <span className={chatStyle["prompt-toast-content"]}>
-            {Locale.Context.Toast(context.length)}
-          </span>
-        </div>
-      )}
+      {/*---原代码：聊天框上toast：包含x条预设提示词*/}
+      {/*{props.showToast && (*/}
+      {/*  <div*/}
+      {/*    className={chatStyle["prompt-toast-inner"] + " clickable"}*/}
+      {/*    role="button"*/}
+      {/*    onClick={() => props.setShowModal(true)}*/}
+      {/*  >*/}
+      {/*    <BrainIcon />*/}
+      {/*    <span className={chatStyle["prompt-toast-content"]}>*/}
+      {/*      {Locale.Context.Toast(context.length)}*/}
+      {/*    </span>*/}
+      {/*  </div>*/}
+      {/*)}*/}
       {props.showModal && (
         <SessionConfigModel onClose={() => props.setShowModal(false)} />
       )}
@@ -336,6 +339,7 @@ export function ChatActions(props: {
           <StopIcon />
         </div>
       )}
+      {/*是否展示向下滚动按钮*/}
       {!props.hitBottom && (
         <div
           className={`${chatStyle["chat-input-action"]} clickable`}
@@ -344,6 +348,7 @@ export function ChatActions(props: {
           <BottomIcon />
         </div>
       )}
+      {/*隐藏了则展示设置按钮*/}
       {props.hitBottom && (
         <div
           className={`${chatStyle["chat-input-action"]} clickable`}
@@ -353,35 +358,39 @@ export function ChatActions(props: {
         </div>
       )}
 
-      <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
-        onClick={nextTheme}
-      >
-        {theme === Theme.Auto ? (
-          <AutoIcon />
-        ) : theme === Theme.Light ? (
-          <LightIcon />
-        ) : theme === Theme.Dark ? (
-          <DarkIcon />
-        ) : null}
-      </div>
+      {/*---原代码：切换主题---*/}
+      {/*<div*/}
+      {/*  className={`${chatStyle["chat-input-action"]} clickable`}*/}
+      {/*  onClick={nextTheme}*/}
+      {/*>*/}
+      {/*  {theme === Theme.Auto ? (*/}
+      {/*    <AutoIcon />*/}
+      {/*  ) : theme === Theme.Light ? (*/}
+      {/*    <LightIcon />*/}
+      {/*  ) : theme === Theme.Dark ? (*/}
+      {/*    <DarkIcon />*/}
+      {/*  ) : null}*/}
+      {/*</div>*/}
 
-      <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
-        onClick={props.showPromptHints}
-      >
-        <PromptIcon />
-      </div>
+      {/*---原代码：快捷提示词---*/}
+      {/*<div*/}
+      {/*  className={`${chatStyle["chat-input-action"]} clickable`}*/}
+      {/*  onClick={props.showPromptHints}*/}
+      {/*>*/}
+      {/*  <PromptIcon />*/}
+      {/*</div>*/}
 
-      <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
-        onClick={() => {
-          navigate(Path.Masks);
-        }}
-      >
-        <MaskIcon />
-      </div>
+      {/*---原代码：切换面具---*/}
+      {/*<div*/}
+      {/*  className={`${chatStyle["chat-input-action"]} clickable`}*/}
+      {/*  onClick={() => {*/}
+      {/*    navigate(Path.Masks);*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <MaskIcon />*/}
+      {/*</div>*/}
 
+      {/*清除上下文*/}
       <div
         className={`${chatStyle["chat-input-action"]} clickable`}
         onClick={() => {
