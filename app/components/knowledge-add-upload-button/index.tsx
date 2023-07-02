@@ -4,26 +4,31 @@ import AddIcon from "../../icons/add.svg";
 import { IconButton } from "../button";
 import Locale from "../../locales";
 import styles from "./index.module.scss";
-import { Modal, message, Upload } from "antd";
+import { Modal, message, Upload, Button } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 // import type { UploadProps } from 'antd';
 
 const { Dragger } = Upload;
 
-interface ExploreAddUploadButtonProps {}
+interface ExploreAddUploadButtonProps {
+  // todo
+  // onCreate:
+}
 
 // TODO：上传流程
 const ExploreAddUploadButton: FC<ExploreAddUploadButtonProps> = () => {
   const [visible, setVisible] = useState(false);
   return (
     <>
-      <IconButton
-        className={styles["explore-create"]}
+      <Button
+        className={styles["knowledge-create"]}
         icon={<AddIcon />}
-        text={Locale.Mask.Page.Create}
-        bordered
-        onClick={() => setVisible(true)}
-      />
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        {Locale.Mask.Page.Create}
+      </Button>
       <Modal
         open={visible}
         title={Locale.Mask.EditModal.Title(false)}
