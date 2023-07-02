@@ -17,6 +17,7 @@ import { Input, List, ListItem, Modal, Popover, Select } from "./ui-lib";
 import { Avatar, AvatarPicker } from "./emoji";
 import Locale, { AllLangs, ALL_LANG_OPTIONS, Lang } from "../locales";
 import { useNavigate } from "react-router-dom";
+import ExploreAddUploadButton from "./explore-add-upload-button";
 
 import chatStyle from "./chat.module.scss";
 import { useEffect, useState } from "react";
@@ -25,6 +26,7 @@ import { Updater } from "../typing";
 import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
 import { BUILTIN_MASK_STORE } from "../masks";
+import AddUploadButton from "./explore-add-upload-button";
 
 export function MaskAvatar(props: { mask: Mask }) {
   return props.mask.avatar !== DEFAULT_MASK_AVATAR ? (
@@ -273,16 +275,17 @@ export function ExplorePage() {
               autoFocus
               onInput={(e) => onSearch(e.currentTarget.value)}
             />
-            <IconButton
+            <ExploreAddUploadButton />
+            {/* <IconButton
               className={styles["explore-create"]}
               icon={<AddIcon />}
-              text={Locale.Mask.Page.Create}
+              text={Locale.Mask.c.Create}
               bordered
               onClick={() => {
                 const createdMask = maskStore.create();
                 setEditingMaskId(createdMask.id);
               }}
-            />
+            /> */}
           </div>
 
           <div className={styles["explore-box"]}>
