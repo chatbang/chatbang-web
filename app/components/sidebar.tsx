@@ -155,6 +155,7 @@ export function SideBar(props: { className?: string }) {
             navigate(Path.Chat);
           }}
         />
+        {/*FIXME：这里是探索页面，开发的时候再打开*/}
         {/*<IconButton*/}
         {/*  icon={isExplorePage ? <ExploreActiveIcon /> : <ExploreIcon />}*/}
         {/*  text={shouldNarrow ? Locale.Mask.Name : undefined}*/}
