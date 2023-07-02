@@ -84,12 +84,7 @@ export function KnowledgeSideBar(props: { className?: string }) {
           className={styles["new-knowledge-button"]}
           icon={<AddIcon />}
           onClick={() => {
-            if (config.dontShowMaskSplashScreen) {
-              chatStore.newSession();
-              navigate(Path.Chat);
-            } else {
-              navigate(Path.NewChat);
-            }
+            showToast("暂未开放");
           }}
           shadow
         />

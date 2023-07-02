@@ -155,12 +155,12 @@ export function SideBar(props: { className?: string }) {
             navigate(Path.Chat);
           }}
         />
-        <IconButton
-          icon={isExplorePage ? <ExploreActiveIcon /> : <ExploreIcon />}
-          text={shouldNarrow ? Locale.Mask.Name : undefined}
-          className={styles["sidebar-bar-button"]}
-          onClick={() => navigate(Path.Explore)}
-        />
+        {/*<IconButton*/}
+        {/*  icon={isExplorePage ? <ExploreActiveIcon /> : <ExploreIcon />}*/}
+        {/*  text={shouldNarrow ? Locale.Mask.Name : undefined}*/}
+        {/*  className={styles["sidebar-bar-button"]}*/}
+        {/*  onClick={() => navigate(Path.Explore)}*/}
+        {/*/>*/}
         {/*判断是否是admin权限*/}
         {/*{isAdmin ? (*/}
         {true ? (

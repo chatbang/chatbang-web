@@ -17,6 +17,7 @@ import { Path } from "../constant";
 import { MaskAvatar } from "./mask";
 import { Mask } from "../store/mask";
 import { useRef, useEffect } from "react";
+import { showToast } from "./ui-lib";
 
 export function KnowledgeItem(props: {
   onClick?: () => void;
@@ -92,8 +93,43 @@ export function KnowledgeList(props: { narrow?: boolean }) {
       state.moveSession,
     ],
   );
+
   const chatStore = useChatStore();
   const navigate = useNavigate();
+
+  const newSession = [
+    {
+      id: 1111111111111,
+      topic: "AI课程",
+      memoryPrompt: "",
+      messages: [],
+      stat: {
+        tokenCount: 0,
+        wordCount: 0,
+        charCount: 0,
+      },
+      lastUpdate: 1688305461136,
+      lastSummarizeIndex: 0,
+      mask: {
+        id: 1145141919810,
+        avatar: "gpt-bot",
+        name: "AI课程",
+        context: [],
+        syncGlobalConfig: true,
+        modelConfig: {
+          model: "gpt-3.5-turbo",
+          temperature: 0.5,
+          max_tokens: 2000,
+          presence_penalty: 0,
+          sendMemory: true,
+          historyMessageCount: 4,
+          compressMessageLengthThreshold: 1000,
+        },
+        lang: "cn",
+        builtin: false,
+      },
+    },
+  ];
 
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source } = result;
@@ -120,7 +156,7 @@ export function KnowledgeList(props: { narrow?: boolean }) {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {sessions.map((item, i) => (
+            {newSession.map((item, i) => (
               <KnowledgeItem
                 title={item.topic}
                 time={new Date(item.lastUpdate).toLocaleString()}
@@ -130,18 +166,42 @@ export function KnowledgeList(props: { narrow?: boolean }) {
                 index={i}
                 selected={i === selectedIndex}
                 onClick={() => {
-                  navigate(Path.Chat);
-                  selectSession(i);
+                  // navigate(Path.Chat);
+                  // selectSession(i);
                 }}
                 onDelete={() => {
-                  if (!props.narrow || confirm(Locale.Home.DeleteChat)) {
-                    chatStore.deleteSession(i);
-                  }
+                  showToast("暂未开放");
+                  // if (!props.narrow || confirm(Locale.Home.DeleteChat)) {
+                  //   chatStore.deleteSession(i);
+                  // }
                 }}
                 narrow={props.narrow}
-                mask={item.mask}
+                mask={item.mask as any}
               />
             ))}
+            {/*----------------------*/}
+            {/*{sessions.map((item, i) => (*/}
+            {/*  <KnowledgeItem*/}
+            {/*    title={item.topic}*/}
+            {/*    time={new Date(item.lastUpdate).toLocaleString()}*/}
+            {/*    count={item.messages.length}*/}
+            {/*    key={item.id}*/}
+            {/*    id={item.id}*/}
+            {/*    index={i}*/}
+            {/*    selected={i === selectedIndex}*/}
+            {/*    onClick={() => {*/}
+            {/*      navigate(Path.Chat);*/}
+            {/*      selectSession(i);*/}
+            {/*    }}*/}
+            {/*    onDelete={() => {*/}
+            {/*      if (!props.narrow || confirm(Locale.Home.DeleteChat)) {*/}
+            {/*        chatStore.deleteSession(i);*/}
+            {/*      }*/}
+            {/*    }}*/}
+            {/*    narrow={props.narrow}*/}
+            {/*    mask={item.mask}*/}
+            {/*  />*/}
+            {/*))}*/}
             {provided.placeholder}
           </div>
         )}

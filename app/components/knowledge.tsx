@@ -168,12 +168,6 @@ export function ContextPrompts(props: {
   updateContext: (updater: (context: ChatMessage[]) => void) => void;
 }) {
   const context = props.context;
-  // 原来走的陈探写的代码---
-  const access = useAccessStore();
-  useEffect(() => {
-    // 刷新页面检查auth状态
-    access.refresh();
-  }, []);
   // end---
 
   const addContextPrompt = (prompt: ChatMessage) => {
