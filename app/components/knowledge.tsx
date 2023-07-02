@@ -28,6 +28,7 @@ import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
 import { BUILTIN_MASK_STORE } from "../masks";
 import { Button, Input } from "antd";
+import AddUploadButton from "./knowledge-add-upload-button";
 
 export function MaskAvatar(props: { mask: Mask }) {
   return props.mask.avatar !== DEFAULT_MASK_AVATAR ? (
@@ -281,7 +282,8 @@ export function KnowledgePage() {
               autoFocus
               onInput={(e) => onSearch(e.currentTarget.value)}
             />
-            <Button
+            <AddUploadButton />
+            {/* <Button
               className={styles["knowledge-create"]}
               icon={<AddIcon />}
               onClick={() => {
@@ -290,7 +292,7 @@ export function KnowledgePage() {
               }}
             >
               {Locale.Mask.Page.Create}
-            </Button>
+            </Button> */}
           </div>
 
           <div className={styles["knowledge-box"]}>
@@ -318,7 +320,7 @@ export function KnowledgePage() {
         </div>
       </div>
 
-      {editingMask && (
+      {/* {editingMask && (
         <div className="modal-knowledge">
           <Modal
             title={Locale.Mask.EditModal.Title(editingMask?.builtin)}
@@ -342,7 +344,7 @@ export function KnowledgePage() {
             />
           </Modal>
         </div>
-      )}
+      )} */}
     </ErrorBoundary>
   );
 }
