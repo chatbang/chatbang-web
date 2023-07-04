@@ -1,19 +1,19 @@
 import { IconButton } from "./button";
 import { ErrorBoundary } from "./error";
-import { AuthPage } from "./auth";
-import { useAccessStore } from "../store";
 
 import styles from "./knowledge.module.scss";
-
-import DownloadIcon from "../icons/download.svg";
-import EditIcon from "../icons/edit.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
-import EyeIcon from "../icons/eye.svg";
 
 import { DEFAULT_MASK_AVATAR, Mask, useMaskStore } from "../store/mask";
-import { ChatMessage, ModelConfig, useAppConfig, useChatStore } from "../store";
+import {
+  ChatMessage,
+  ModelConfig,
+  useAppConfig,
+  useChatStore,
+  useFileListStore,
+} from "../store";
 import { ROLES } from "../client/api";
 import { List, ListItem, Modal, Popover, Select } from "./ui-lib";
 import { Avatar, AvatarPicker } from "./emoji";
@@ -27,8 +27,10 @@ import { Updater } from "../typing";
 import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
 import { BUILTIN_MASK_STORE } from "../masks";
-import { Button, Input } from "antd";
+import { Button, Input, UploadFile, UploadProps } from "antd";
 import AddUploadButton from "./knowledge-add-upload-button";
+import Dragger from "antd/es/upload/Dragger";
+import { InboxOutlined } from "@ant-design/icons";
 
 export function MaskAvatar(props: { mask: Mask }) {
   return props.mask.avatar !== DEFAULT_MASK_AVATAR ? (
@@ -219,34 +221,10 @@ export function ContextPrompts(props: {
 export function KnowledgePage() {
   const navigate = useNavigate();
 
-  const maskStore = useMaskStore();
-  const chatStore = useChatStore();
+  const { fileList, setFileList } = useFileListStore();
 
-  const [filterLang, setFilterLang] = useState<Lang>();
-
-  const allMasks = maskStore
-    .getAll()
-    .filter((m) => !filterLang || m.lang === filterLang);
-
-  const [searchMasks, setSearchMasks] = useState<Mask[]>([]);
-  const [searchText, setSearchText] = useState("");
-  const masks = searchText.length > 0 ? searchMasks : allMasks;
-
-  // simple search, will refactor later
-  const onSearch = (text: string) => {
-    setSearchText(text);
-    if (text.length > 0) {
-      const result = allMasks.filter((m) => m.name.includes(text));
-      setSearchMasks(result);
-    } else {
-      setSearchMasks(allMasks);
-    }
-  };
-
-  const [editingMaskId, setEditingMaskId] = useState<number | undefined>();
-  const editingMask =
-    maskStore.get(editingMaskId) ?? BUILTIN_MASK_STORE.get(editingMaskId);
-  const closeMaskModal = () => setEditingMaskId(undefined);
+  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
 
   return (
     <ErrorBoundary>
@@ -268,77 +246,21 @@ export function KnowledgePage() {
         </div>
 
         <div className={styles["knowledge-page-body"]}>
-          <div className={styles["knowledge-filter"]}>
-            <Input
-              type="text"
-              className={styles["search-bar"]}
-              placeholder="搜索课程库"
-              autoFocus
-              onInput={(e) => onSearch(e.currentTarget.value)}
-            />
-            <AddUploadButton />
-            {/* <Button
-              className={styles["knowledge-create"]}
-              icon={<AddIcon />}
-              onClick={() => {
-                const createdMask = maskStore.create();
-                setEditingMaskId(createdMask.id);
-              }}
-            >
-              {Locale.Mask.Page.Create}
-            </Button> */}
-          </div>
-
-          <div className={styles["knowledge-box"]}>
-            {masks.map((m) => (
-              <div className={styles["knowledge-item"]} key={m.id}>
-                <div className={styles["knowledge-header"]}>
-                  <div className={styles["knowledge-title"]}>{m.name}</div>
-                  <IconButton
-                    icon={<DeleteIcon />}
-                    onClick={() => {
-                      if (confirm(Locale.Explore.Item.DeleteConfirm)) {
-                        maskStore.delete(m.id);
-                      }
-                    }}
-                  />
-                </div>
-                <div className={styles["knowledge-session"]}>
-                  我是{m.name}
-                  的描述信息，针对这个角色的描述信息，对课程进行解答，快速解决课前准备问题。
-                  针对这个角色的描述信息，对课程进行解答，快速解决课前准备问题。
-                </div>
-              </div>
-            ))}
-          </div>
+          <Dragger
+            accept=".pdf,.txt,.png"
+            action="https://api.chatbang.org/api/file-process"
+            listType="picture"
+            className={styles["upload-list-inline"]}
+            defaultFileList={[...fileList]}
+            onChange={handleChange}
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined rev={undefined} />
+            </p>
+            <p className="ant-upload-text">点击或拖拽文件至此区域即可上传</p>
+          </Dragger>
         </div>
       </div>
-
-      {/* {editingMask && (
-        <div className="modal-knowledge">
-          <Modal
-            title={Locale.Mask.EditModal.Title(editingMask?.builtin)}
-            onClose={closeMaskModal}
-            actions={[
-              <IconButton
-                icon={<DownloadIcon />}
-                text={Locale.Explore.EditModal.Save}
-                key="export"
-                bordered
-                onClick={() => {}}
-              />,
-            ]}
-          >
-            <MaskConfig
-              mask={editingMask}
-              updateMask={(updater) =>
-                maskStore.update(editingMaskId!, updater)
-              }
-              readonly={editingMask.builtin}
-            />
-          </Modal>
-        </div>
-      )} */}
     </ErrorBoundary>
   );
 }

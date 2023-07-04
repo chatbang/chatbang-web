@@ -2,8 +2,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { StoreKey } from "../constant";
 import { getHeaders } from "../client/api";
-import { BOT_HELLO } from "./chat";
-import { ALL_MODELS } from "./config";
 
 export interface AccessControlStore {
   accessCode: string;
@@ -18,7 +16,7 @@ export interface AccessControlStore {
   updateCode: (_: string) => void;
   enabledAccessControl: () => boolean;
   isAuthorized: () => boolean; // 是否已经授权
-  fetchAuth: () => void; // 请求授权信息
+  fetchAuth: () => Promise<any>; // 请求授权信息
 }
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
@@ -68,6 +66,8 @@ export const useAccessStore = create<AccessControlStore>()(
             if (status === 200) {
               this.updateToken(get().accessCode);
               set(() => ({ isAdmin }));
+            } else {
+              return Promise.reject(res);
             }
             // set(() => ({ ...res }));
 
@@ -82,8 +82,9 @@ export const useAccessStore = create<AccessControlStore>()(
             //   BOT_HELLO.content = (res as any).botHello;
             // }
           })
-          .catch(() => {
-            console.error("[Config] failed to fetch config");
+          .catch((err: Error) => {
+            console.error("[Config] failed to fetch config", err);
+            return Promise.reject(err);
           })
           .finally(() => {
             fetchState = 2;

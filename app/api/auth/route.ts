@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../auth";
 
 // auth相关
-async function handle(req: NextRequest) {
+async function handle(req: NextRequest, res: NextResponse) {
   const authResult = auth(req);
 
   if (authResult.error) {
