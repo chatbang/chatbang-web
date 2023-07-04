@@ -146,10 +146,8 @@ function Screen() {
         ` ${!isMobileScreen ? styles["tight-container"] : styles.container}`
       }
     >
-      {isAuth ? (
-        <>
-          <AuthPage />
-        </>
+      {!access.accessCode || !access.isAuthorized() ? (
+        <AuthPage />
       ) : (
         <>
           <SideBar className={isHome ? styles["sidebar-show"] : ""} />

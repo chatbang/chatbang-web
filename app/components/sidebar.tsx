@@ -164,7 +164,7 @@ export function SideBar(props: { className?: string }) {
         {/*/>*/}
         {/*判断是否是admin权限*/}
         {/*{isAdmin ? (*/}
-        {true ? (
+        {isAdmin ? (
           <IconButton
             icon={isKnowledgePage ? <KnowledgeActiveIcon /> : <KnowledgeIcon />}
             text={shouldNarrow ? "知识库" : undefined}

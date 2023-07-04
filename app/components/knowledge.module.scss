@@ -2,12 +2,23 @@
 
 .knowledge-page {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-
+  
+  .ant-upload-rtl.upload-list-inline .ant-upload-list-item {
+    float: right;
+  }
+  
   .knowledge-page-body {
     padding: 20px;
+    max-height: 90vh;
     overflow-y: auto;
+
+    .upload-list-inline {
+      .ant-upload-list-item {
+        float: left;
+        width: 200px;
+        margin-inline-end: 8px;
+      }
+    }
 
     .knowledge-filter {
       width: 100%;
