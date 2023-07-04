@@ -247,7 +247,7 @@ export function KnowledgePage() {
 
         <div className={styles["knowledge-page-body"]}>
           <Dragger
-            accept=".pdf,.txt,.png"
+            accept=".pdf,.txt"
             action="https://api.chatbang.org/api/file-process"
             listType="picture"
             className={styles["upload-list-inline"]}
