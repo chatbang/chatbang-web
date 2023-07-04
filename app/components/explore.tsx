@@ -25,6 +25,7 @@ import { Updater } from "../typing";
 import { ModelConfigList } from "./model-config";
 import { FileName, Path } from "../constant";
 import { BUILTIN_MASK_STORE } from "../masks";
+import ExploreAddUploadButton from "./knowledge-add-upload-button";
 
 export function MaskAvatar(props: { mask: Mask }) {
   return props.mask.avatar !== DEFAULT_MASK_AVATAR ? (
