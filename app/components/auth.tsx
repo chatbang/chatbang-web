@@ -24,7 +24,7 @@ export function AuthPage() {
 
       <input
         className={styles["auth-input"]}
-        type="text"
+        type="password"
         placeholder={Locale.Auth.Input}
         value={access.accessCode}
         onChange={(e) => {

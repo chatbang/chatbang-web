@@ -14,7 +14,7 @@ export const ALL_LANG_OPTIONS: Record<Lang, string> = {
 };
 
 const LANG_KEY = "lang";
-const DEFAULT_LANG = "en";
+const DEFAULT_LANG = "cn";
 
 function getItem(key: string) {
   try {
@@ -62,7 +62,7 @@ export function changeLang(lang: Lang) {
   location.reload();
 }
 
-const fallbackLang = EN;
+const fallbackLang = CN;
 const targetLang = {
   en: EN,
   cn: CN,

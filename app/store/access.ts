@@ -50,10 +50,6 @@ export const useAccessStore = create<AccessControlStore>()(
       isAuthorized() {
         if (fetchState === 0) get().fetchAuth();
         // 有 token or 禁用 access control，即可验证通过
-        console.log(
-          "isAuthorized：",
-          !!get().token || !get().enabledAccessControl(),
-        );
         return !!get().token || !get().enabledAccessControl();
       },
       // 获取授权信息
@@ -68,7 +64,6 @@ export const useAccessStore = create<AccessControlStore>()(
         })
           .then((res) => res.json())
           .then((res: { status: number; [k: string]: any }) => {
-            console.log("----------->", res);
             const { isAdmin, status } = res;
             if (status === 200) {
               this.updateToken(get().accessCode);
