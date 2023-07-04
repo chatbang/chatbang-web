@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const OPENAI_URL = "api.openai.com";
+export const OPENAI_URL = "api.chatbang.org";
 const DEFAULT_PROTOCOL = "https";
 const PROTOCOL = process.env.PROTOCOL ?? DEFAULT_PROTOCOL;
 const BASE_URL = process.env.BASE_URL ?? OPENAI_URL;
@@ -85,6 +85,62 @@ export async function requestOpenai(req: NextRequest) {
     }
 
     return res;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+export async function requestBackend(question: string, history: string[]) {
+  const controller = new AbortController();
+  const openaiPath = "/api/completion";
+
+  let baseUrl = BASE_URL;
+
+  if (!baseUrl.startsWith("http")) {
+    baseUrl = `${PROTOCOL}://${baseUrl}`;
+  }
+
+  console.log("[Proxy] ", openaiPath);
+  console.log("[Base Url]", baseUrl);
+
+  if (process.env.OPENAI_ORG_ID) {
+    console.log("[Org ID]", process.env.OPENAI_ORG_ID);
+  }
+
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, 10 * 60 * 1000);
+
+  const fetchUrl = `${baseUrl}/${openaiPath}`;
+  const fetchOptions: RequestInit = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+    method: "POST",
+    body: JSON.stringify({
+      question,
+      history,
+    }),
+    signal: controller.signal,
+  };
+
+  try {
+    const res = await fetch(fetchUrl, fetchOptions);
+
+    if (res.status === 401) {
+      // to prevent browser prompt for credentials
+      const newHeaders = new Headers(res.headers);
+      newHeaders.delete("www-authenticate");
+      return new Response(res.body, {
+        status: res.status,
+        statusText: res.statusText,
+        headers: newHeaders,
+      });
+    }
+
+    const jsonData = await res.json();
+    return new Response(jsonData.answer, { status: res.status });
   } finally {
     clearTimeout(timeoutId);
   }

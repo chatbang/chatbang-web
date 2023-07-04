@@ -25,7 +25,7 @@ export const DEFAULT_CONFIG = {
   sendPreviewBubble: true, // 发送消息时是否显示预览气泡
   sidebarWidth: 100,
 
-  disablePromptHint: false, // 是否禁用提示信息
+  disablePromptHint: true, // 是否禁用提示信息
 
   dontShowMaskSplashScreen: true, // dont show splash screen when create chat
 
